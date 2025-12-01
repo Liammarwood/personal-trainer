@@ -1,56 +1,106 @@
 # Personal Trainer - Joint Tracking Exercise Monitor
 
-A Python application that uses MediaPipe and OpenCV to track exercise form in real-time through your webcam. The system provides rep counting, form feedback, and detailed logging for various exercises.
+A Python application with React frontend that uses MediaPipe and OpenCV to track exercise form in real-time through your webcam. The system provides rep counting, form feedback, and detailed logging for various exercises.
 
 ## Features
 
 - **Real-time Joint Tracking**: Uses MediaPipe Pose for accurate body landmark detection
 - **10 Exercise Types**: Squat, Shoulder Press, Deadlift, Romanian Deadlift, Calf Raise, Barbell Row, Bicep Curl, Bench Press, Front Raise, Dumbbell Fly
 - **Form Validation**: Ensures proper range of motion and technique before counting reps
-- **Web Interface**: Flask-based web UI for easy exercise selection and monitoring
+- **React Web Interface**: Modern SPA with centralized state management
+- **FitBod Integration**: Upload workout videos and automatically detect exercises
+- **Fuzzy Exercise Matching**: Maps 50+ exercise name variations to tracking exercises
 - **Detailed Logging**: Tracks all reps with timestamps, metrics, and quality assessments
 - **Extensible Architecture**: Easy to add new exercises with base class system
 
 ## Requirements
 
-- Python 3.10
+- Python 3.10+
+- Node.js 16+ and npm
 - Webcam
-- Requirements in `requirements.txt`
+- Dependencies in `requirements.txt` and `frontend/package.json`
 
 ## Installation
+
+### Backend
 
 ```bash
 pip install -r requirements.txt
 ```
 
+### Frontend
+
+```bash
+cd frontend
+npm install
+```
+
 ## Quick Start
 
-### Web Interface (Recommended)
+### Option 1: Use Startup Scripts (Easiest)
 
+**Windows:**
+```bash
+start.bat
+```
+
+**Mac/Linux:**
+```bash
+./start.sh
+```
+
+This will start both the Flask API server (port 5000) and React frontend (port 3000).
+
+### Option 2: Manual Startup
+
+**Terminal 1 - Backend:**
 ```bash
 python web_server.py
 ```
 
-Then open your browser to `http://localhost:5000` to:
+**Terminal 2 - Frontend:**
+```bash
+cd frontend
+npm run dev
+```
+
+Then open your browser to `http://localhost:3000` to:
 - View live video feed with pose tracking
-- Select exercises from dropdown
-- See real-time rep counts and form instructions
+- Select exercises from dropdown with workout plan configuration
+- See real-time rep counts and statistics
+- Upload FitBod videos for exercise detection
 - Track workout progress
 
-### Command Line Interface
+## Architecture
 
-For individual exercises, you can run them directly:
+The application uses a modern architecture:
 
-```bash
-python squat.py          # Squat tracking
-python shoulder_press.py  # Shoulder press tracking
 ```
+React SPA (Port 3000) ←→ Flask REST API (Port 5000) ←→ MediaPipe + OpenCV
+```
+
+- **Frontend**: React 18 with Context API for state management
+- **Backend**: Flask REST API with CORS support
+- **Video Processing**: OpenCV + MediaPipe for pose detection
+- **Exercise Detection**: Base class system with 10 exercise types
+- **OCR**: Tesseract for FitBod video scanning
 
 ## Project Structure
 
 ```
 personal-trainer/
-├── exercises/               # Exercise detector modules
+├── frontend/               # React application
+│   ├── src/
+│   │   ├── components/     # React components
+│   │   ├── context/        # State management
+│   │   ├── services/       # API layer
+│   │   ├── App.jsx
+│   │   └── main.jsx
+│   ├── package.json
+│   ├── vite.config.js
+│   └── README.md
+│
+├── exercises/              # Exercise detector modules
 │   ├── __init__.py         # Exercise registry and loading
 │   ├── base_exercise.py    # Abstract base class for all exercises
 │   ├── utils.py            # Shared utility functions
@@ -66,14 +116,15 @@ personal-trainer/
 │   └── dumbbell_fly.py     # Dumbbell fly detector
 │
 ├── logs/                   # Exercise log files (auto-created)
-│
-├── templates/              # HTML templates for web interface
-│   └── index.html
+├── uploads/                # Uploaded FitBod videos (auto-created)
 │
 ├── joint_tracker.py        # Core joint tracking engine
 ├── event_handlers.py       # Event handler base classes
-├── web_server.py          # Flask web server
-└── requirements.txt        # Python dependencies
+├── web_server.py           # Flask REST API server
+├── fitbod_scanner.py       # FitBod video OCR processor
+├── requirements.txt        # Python dependencies
+├── start.bat / start.sh    # Startup scripts
+└── README.md
 ```
 
 ## Adding a New Exercise
