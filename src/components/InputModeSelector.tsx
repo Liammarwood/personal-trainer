@@ -1,5 +1,6 @@
 import { useState, ChangeEvent, MouseEvent } from 'react';
 import { useWorkout } from '../context/WorkoutContext';
+import { useSettings } from '../context/SettingsContext';
 import {
   Paper,
   Typography,
@@ -20,13 +21,14 @@ interface InputModeSelectorProps {
 }
 
 const InputModeSelector: React.FC<InputModeSelectorProps> = ({ disabled = false }) => {
-  const { isTracking, inputMode, setInputMode, setSelectedVideoFile } = useWorkout();
+  const { isTracking, setSelectedVideoFile } = useWorkout();
+  const { settings, updateSetting } = useSettings();
   const [videoFile, setVideoFile] = useState<File | null>(null);
   const [uploadError, setUploadError] = useState<string>('');
 
   const handleModeChange = (event: MouseEvent<HTMLElement>, newMode: InputMode | null): void => {
     if (newMode !== null) {
-      setInputMode(newMode);
+      updateSetting('inputMode', newMode);
       setVideoFile(null);
       setSelectedVideoFile(null);
       setUploadError('');
@@ -56,14 +58,14 @@ const InputModeSelector: React.FC<InputModeSelectorProps> = ({ disabled = false 
         Input Mode
       </Typography>
       <ToggleButtonGroup
-        value={inputMode}
+        value={settings.inputMode}
         exclusive
         onChange={handleModeChange}
         fullWidth
         disabled={disabled || isTracking}
         size="small"
         sx={{
-          mb: inputMode === 'video' ? 2 : 0,
+          mb: settings.inputMode === 'video' ? 2 : 0,
           '& .MuiToggleButton-root': {
             py: { xs: 1, sm: 1.5 },
             fontSize: { xs: '0.8rem', sm: '0.875rem' }
@@ -80,7 +82,7 @@ const InputModeSelector: React.FC<InputModeSelectorProps> = ({ disabled = false 
         </ToggleButton>
       </ToggleButtonGroup>
 
-      {inputMode === 'video' && !isTracking && (
+      {settings.inputMode === 'video' && !isTracking && (
         <Box>
           <Button
             variant="outlined"

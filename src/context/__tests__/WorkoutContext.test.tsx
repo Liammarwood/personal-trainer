@@ -501,25 +501,7 @@ describe('WorkoutContext', () => {
     });
   });
 
-  describe('Input Mode', () => {
-    it('should toggle input mode', () => {
-      const { result } = renderHook(() => useWorkout(), { wrapper });
-
-      expect(result.current.inputMode).toBe('webcam');
-
-      act(() => {
-        result.current.setInputMode('video');
-      });
-
-      expect(result.current.inputMode).toBe('video');
-
-      act(() => {
-        result.current.setInputMode('webcam');
-      });
-
-      expect(result.current.inputMode).toBe('webcam');
-    });
-
+  describe('Video File Management', () => {
     it('should set selected video file', () => {
       const { result } = renderHook(() => useWorkout(), { wrapper });
 

@@ -1,5 +1,6 @@
 import { useState, MouseEvent, ChangeEvent, SyntheticEvent } from 'react';
 import { useWorkout } from '../context/WorkoutContext';
+import { useSettings } from '../context/SettingsContext';
 import type { WorkoutOptions, Exercise } from '../types';
 import {
   Paper,
@@ -34,7 +35,8 @@ import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 const WorkoutPlan: React.FC = () => {
-  const { workoutPlan, completedExercises, currentExerciseIndex, startExercise, clearWorkoutPlan, isTracking, exercises, currentExercise, stopExercise, loading, trackVideoFile, inputMode, selectedVideoFile, removeExerciseFromPlan, setMultipleExercisesToWorkoutPlan } = useWorkout();
+  const { workoutPlan, completedExercises, currentExerciseIndex, startExercise, clearWorkoutPlan, isTracking, exercises, currentExercise, stopExercise, loading, trackVideoFile, selectedVideoFile, removeExerciseFromPlan, setMultipleExercisesToWorkoutPlan } = useWorkout();
+  const { settings } = useSettings();
   const [expanded, setExpanded] = useState<boolean>(true);
   const [selectedExercise, setSelectedExercise] = useState<Exercise | null>(null);
   const [sets, setSets] = useState<number>(3);
@@ -60,7 +62,7 @@ const WorkoutPlan: React.FC = () => {
     };
 
     // Check if we should track a video file or start webcam tracking
-    if (inputMode === 'video' && selectedVideoFile) {
+    if (settings.inputMode === 'video' && selectedVideoFile) {
       await trackVideoFile(selectedVideoFile, selectedExercise.id, options);
     } else {
       await startExercise(selectedExercise.id, options);

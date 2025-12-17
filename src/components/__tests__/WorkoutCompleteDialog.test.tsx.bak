@@ -1,0 +1,129 @@
+import { describe, it, expect, vi } from 'vitest';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import WorkoutCompleteDialog from '../WorkoutCompleteDialog';
+import type { WorkoutStats } from '../../types';
+
+describe('WorkoutCompleteDialog', () => {
+  const mockOnClose = vi.fn();
+  const mockStats: WorkoutStats = {
+    reps: 30,
+    sets: 3,
+    duration: 180, // 3 minutes
+    workout_complete: true,
+    expected_plan: {
+      sets: 3,
+      reps_per_set: 10,
+      target_weight: 20,
+    },
+  };
+
+  beforeEach(() => {
+    mockOnClose.mockClear();
+  });
+
+  it('should render when open', () => {
+    render(
+      <WorkoutCompleteDialog
+        open={true}
+        onClose={mockOnClose}
+        stats={mockStats}
+        exerciseName="Push-ups"
+      />
+    );
+    
+    expect(screen.getByText(/Workout Complete/i)).toBeInTheDocument();
+    expect(screen.getByText(/Push-ups/i)).toBeInTheDocument();
+  });
+
+  it('should not render when closed', () => {
+    render(
+      <WorkoutCompleteDialog
+        open={false}
+        onClose={mockOnClose}
+        stats={mockStats}
+        exerciseName="Push-ups"
+      />
+    );
+    
+    expect(screen.queryByText(/Workout Complete/i)).not.toBeInTheDocument();
+  });
+
+  it('should display sets completed', () => {
+    render(
+      <WorkoutCompleteDialog
+        open={true}
+        onClose={mockOnClose}
+        stats={mockStats}
+        exerciseName="Push-ups"
+      />
+    );
+    
+    expect(screen.getByText(/3/)).toBeInTheDocument(); // sets
+  });
+
+  it('should display total reps', () => {
+    render(
+      <WorkoutCompleteDialog
+        open={true}
+        onClose={mockOnClose}
+        stats={mockStats}
+        exerciseName="Push-ups"
+      />
+    );
+    
+    expect(screen.getByText(/30/)).toBeInTheDocument(); // reps
+  });
+
+  it('should display duration in minutes and seconds', () => {
+    render(
+      <WorkoutCompleteDialog
+        open={true}
+        onClose={mockOnClose}
+        stats={mockStats}
+        exerciseName="Push-ups"
+      />
+    );
+    
+    // Duration is 180 seconds = 3:00
+    expect(screen.getByText(/3:00/)).toBeInTheDocument();
+  });
+
+  it('should call onClose when close button clicked', async () => {
+    const user = userEvent.setup();
+    render(
+      <WorkoutCompleteDialog
+        open={true}
+        onClose={mockOnClose}
+        stats={mockStats}
+        exerciseName="Push-ups"
+      />
+    );
+    
+    const closeButton = screen.getByRole('button', { name: /close|done|finish/i });
+    await user.click(closeButton);
+    
+    expect(mockOnClose).toHaveBeenCalledTimes(1);
+  });
+
+  it('should handle stats without expected plan', () => {
+    const statsWithoutPlan: WorkoutStats = {
+      reps: 25,
+      sets: 2,
+      duration: 120,
+      workout_complete: true,
+    };
+
+    render(
+      <WorkoutCompleteDialog
+        open={true}
+        onClose={mockOnClose}
+        stats={statsWithoutPlan}
+        exerciseName="Squats"
+      />
+    );
+    
+    expect(screen.getByText(/Squats/i)).toBeInTheDocument();
+    expect(screen.getByText(/25/)).toBeInTheDocument();
+  });
+});

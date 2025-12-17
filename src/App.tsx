@@ -9,7 +9,6 @@ import InstallPrompt from './components/InstallPrompt';
 import InstallPWA from './components/InstallPWA';
 import WorkoutCompleteDialog from './components/WorkoutCompleteDialog';
 import SettingsMenu from './components/SettingsMenu';
-import InputModeSelector from './components/InputModeSelector';
 import AboutModal from './components/AboutModal';
 import { RequireAuth } from './components/RequireAuth';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
@@ -95,15 +94,9 @@ function AppContent(): JSX.Element {
 
       <Container maxWidth={false} disableGutters sx={{ px: { xs: 1, sm: 2 }, py: { xs: 2, sm: 3 }, flex: 1 }}>
         <Grid container spacing={{ xs: 1, sm: 2 }}>
-          {/* Left column - Video/Stats and Input Mode */}
+          {/* Left column - Video/Stats */}
           <Grid size={{ xs: 12, md: 6 }}>
-            {/* Video or Stats Panel */}
-            <Box sx={{ mb: { xs: 2, sm: 3 } }}>
-              {hideVideoFeed ? <StatsPanel onShowVideo={() => setHideVideoFeed(false)} /> : <VideoFeed onToggleVideo={() => setHideVideoFeed(!hideVideoFeed)} />}
-            </Box>
-            
-            {/* Input Mode Selector */}
-            <InputModeSelector />
+            {hideVideoFeed ? <StatsPanel onShowVideo={() => setHideVideoFeed(false)} /> : <VideoFeed onToggleVideo={() => setHideVideoFeed(!hideVideoFeed)} />}
           </Grid>
 
           {/* Right column - Today's Workout and Upload */}

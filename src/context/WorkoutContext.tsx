@@ -2,8 +2,6 @@ import React, { createContext, useContext, useState, useEffect, ReactNode } from
 import api from '../services/api';
 import type { Exercise, WorkoutStats, WorkoutOptions, UploadResults } from '../types';
 
-type InputMode = 'webcam' | 'video';
-
 interface WorkoutContextValue {
   exercises: Exercise[];
   currentExercise: string | null;
@@ -14,10 +12,8 @@ interface WorkoutContextValue {
   completedExercises: number[];
   isTracking: boolean;
   loading: boolean;
-  inputMode: InputMode;
   selectedVideoFile: File | null;
   sessionId: string | null;
-  setInputMode: (mode: InputMode) => void;
   setSelectedVideoFile: (file: File | null) => void;
   startExercise: (exerciseId: string, options?: WorkoutOptions) => Promise<void>;
   stopExercise: () => Promise<void>;
@@ -64,7 +60,6 @@ export const WorkoutProvider: React.FC<WorkoutProviderProps> = ({ children }) =>
   const [completedExercises, setCompletedExercises] = useState<number[]>([]);
   const [isTracking, setIsTracking] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
-  const [inputMode, setInputMode] = useState<InputMode>('webcam');
   const [selectedVideoFile, setSelectedVideoFile] = useState<File | null>(null);
   const [startTime, setStartTime] = useState<number>(0);
 
@@ -437,10 +432,8 @@ export const WorkoutProvider: React.FC<WorkoutProviderProps> = ({ children }) =>
     completedExercises,
     isTracking,
     loading,
-    inputMode,
     selectedVideoFile,
     sessionId,
-    setInputMode,
     setSelectedVideoFile,
     startExercise,
     stopExercise,
