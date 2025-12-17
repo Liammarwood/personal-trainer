@@ -1,0 +1,3113 @@
+{
+  "exercises": {
+    "bench_press": {
+      "name": "Bench Press",
+      "description": "Tracks arm extension from chest level",
+      "category": "Upper Body",
+      "cooldown_frames": 15,
+      "joints": {
+        "required": [
+          "SHOULDER",
+          "ELBOW",
+          "WRIST"
+        ],
+        "bilateral": true
+      },
+      "metrics": {
+        "elbow_angle": {
+          "calculation": "bilateral_angle",
+          "points": [
+            "shoulder",
+            "elbow",
+            "wrist"
+          ]
+        },
+        "press_depth": {
+          "calculation": "distance_2d_average",
+          "points": [
+            "wrist",
+            "shoulder"
+          ]
+        }
+      },
+      "positions": {
+        "rep_position": {
+          "conditions": [
+            {
+              "metric": "elbow_angle",
+              "operator": ">",
+              "value": 165
+            }
+          ]
+        },
+        "starting_position": {
+          "conditions": [
+            {
+              "metric": "elbow_angle",
+              "operator": "<",
+              "value": 90
+            }
+          ]
+        }
+      },
+      "quality_levels": {
+        "excellent": {
+          "conditions": [
+            {
+              "metric": "elbow_angle",
+              "operator": ">",
+              "value": 170
+            }
+          ],
+          "message": "Excellent - Full lockout"
+        },
+        "good": {
+          "conditions": [
+            {
+              "metric": "elbow_angle",
+              "operator": ">",
+              "value": 165
+            }
+          ],
+          "message": "Good - Nearly locked"
+        },
+        "default": {
+          "message": "Incomplete - Lock arms"
+        }
+      },
+      "instructions": {
+        "in_position": "LOCKED OUT - Hold",
+        "return": "LOWER - Touch chest",
+        "ready": "READY - Press to lockout"
+      }
+    },
+    "push_up": {
+      "name": "Push Up",
+      "description": "Tracks standard push-ups with proper form",
+      "category": "Upper Body",
+      "cooldown_frames": 15,
+      "joints": {
+        "required": [
+          "SHOULDER",
+          "ELBOW",
+          "WRIST"
+        ],
+        "bilateral": true
+      },
+      "metrics": {
+        "elbow_angle": {
+          "calculation": "bilateral_angle",
+          "points": [
+            "shoulder",
+            "elbow",
+            "wrist"
+          ]
+        }
+      },
+      "positions": {
+        "rep_position": {
+          "conditions": [
+            {
+              "metric": "elbow_angle",
+              "operator": "<",
+              "value": 90
+            }
+          ]
+        },
+        "starting_position": {
+          "conditions": [
+            {
+              "metric": "elbow_angle",
+              "operator": ">",
+              "value": 160
+            }
+          ]
+        }
+      },
+      "quality_levels": {
+        "excellent": {
+          "conditions": [
+            {
+              "metric": "elbow_angle",
+              "operator": "<",
+              "value": 80
+            }
+          ],
+          "message": "Excellent - Full depth"
+        },
+        "good": {
+          "conditions": [
+            {
+              "metric": "elbow_angle",
+              "operator": "<",
+              "value": 100
+            }
+          ],
+          "message": "Good - Nearly parallel"
+        },
+        "default": {
+          "message": "Shallow - Go deeper"
+        }
+      },
+      "instructions": {
+        "in_position": "DOWN - Lower chest to ground",
+        "return": "UP - Push to starting position",
+        "ready": "READY - Begin push-up"
+      }
+    },
+    "incline_push_up": {
+      "name": "Incline Push-Up",
+      "description": "Tracks incline push-ups with elevated hands",
+      "category": "Upper Body",
+      "cooldown_frames": 15,
+      "joints": {
+        "required": [
+          "SHOULDER",
+          "ELBOW",
+          "WRIST"
+        ],
+        "bilateral": true
+      },
+      "metrics": {
+        "elbow_angle": {
+          "calculation": "bilateral_angle",
+          "points": [
+            "shoulder",
+            "elbow",
+            "wrist"
+          ]
+        }
+      },
+      "positions": {
+        "rep_position": {
+          "conditions": [
+            {
+              "metric": "elbow_angle",
+              "operator": "<",
+              "value": 90
+            }
+          ]
+        },
+        "starting_position": {
+          "conditions": [
+            {
+              "metric": "elbow_angle",
+              "operator": ">",
+              "value": 160
+            }
+          ]
+        }
+      },
+      "quality_levels": {
+        "excellent": {
+          "conditions": [
+            {
+              "metric": "elbow_angle",
+              "operator": "<",
+              "value": 85
+            }
+          ],
+          "message": "Excellent - Full range"
+        },
+        "good": {
+          "conditions": [
+            {
+              "metric": "elbow_angle",
+              "operator": "<",
+              "value": 100
+            }
+          ],
+          "message": "Good - Nearly full"
+        },
+        "default": {
+          "message": "Shallow - Go lower"
+        }
+      },
+      "instructions": {
+        "in_position": "DOWN - Lower chest",
+        "return": "UP - Push to start",
+        "ready": "READY - Begin incline push-up"
+      }
+    },
+    "diamond_push_up": {
+      "name": "Diamond Push-Up",
+      "description": "Tracks diamond push-ups with close hand position",
+      "category": "Upper Body",
+      "cooldown_frames": 15,
+      "joints": {
+        "required": [
+          "SHOULDER",
+          "ELBOW",
+          "WRIST"
+        ],
+        "bilateral": true
+      },
+      "metrics": {
+        "elbow_angle": {
+          "calculation": "bilateral_angle",
+          "points": [
+            "shoulder",
+            "elbow",
+            "wrist"
+          ]
+        }
+      },
+      "positions": {
+        "rep_position": {
+          "conditions": [
+            {
+              "metric": "elbow_angle",
+              "operator": "<",
+              "value": 90
+            }
+          ]
+        },
+        "starting_position": {
+          "conditions": [
+            {
+              "metric": "elbow_angle",
+              "operator": ">",
+              "value": 160
+            }
+          ]
+        }
+      },
+      "quality_levels": {
+        "excellent": {
+          "conditions": [
+            {
+              "metric": "elbow_angle",
+              "operator": "<",
+              "value": 80
+            }
+          ],
+          "message": "Excellent - Full depth"
+        },
+        "good": {
+          "conditions": [
+            {
+              "metric": "elbow_angle",
+              "operator": "<",
+              "value": 95
+            }
+          ],
+          "message": "Good - Nearly full"
+        },
+        "default": {
+          "message": "Shallow - Go lower"
+        }
+      },
+      "instructions": {
+        "in_position": "DOWN - Lower body",
+        "return": "UP - Push up",
+        "ready": "READY - Begin diamond push-up"
+      }
+    },
+    "pike_push_up": {
+      "name": "Pike Push-Up",
+      "description": "Tracks pike push-ups with elevated hips",
+      "category": "Upper Body",
+      "cooldown_frames": 15,
+      "joints": {
+        "required": [
+          "SHOULDER",
+          "ELBOW",
+          "WRIST"
+        ],
+        "bilateral": true
+      },
+      "metrics": {
+        "elbow_angle": {
+          "calculation": "bilateral_angle",
+          "points": [
+            "shoulder",
+            "elbow",
+            "wrist"
+          ]
+        }
+      },
+      "positions": {
+        "rep_position": {
+          "conditions": [
+            {
+              "metric": "elbow_angle",
+              "operator": "<",
+              "value": 90
+            }
+          ]
+        },
+        "starting_position": {
+          "conditions": [
+            {
+              "metric": "elbow_angle",
+              "operator": ">",
+              "value": 160
+            }
+          ]
+        }
+      },
+      "quality_levels": {
+        "excellent": {
+          "conditions": [
+            {
+              "metric": "elbow_angle",
+              "operator": "<",
+              "value": 75
+            }
+          ],
+          "message": "Excellent - Full range"
+        },
+        "good": {
+          "conditions": [
+            {
+              "metric": "elbow_angle",
+              "operator": "<",
+              "value": 90
+            }
+          ],
+          "message": "Good - Nearly full"
+        },
+        "default": {
+          "message": "Shallow - Go lower"
+        }
+      },
+      "instructions": {
+        "in_position": "DOWN - Lower head",
+        "return": "UP - Push up",
+        "ready": "READY - Begin pike push-up"
+      }
+    },
+    "dumbbell_fly": {
+      "name": "Dumbbell Fly",
+      "description": "Tracks chest fly with wide arm spread",
+      "category": "Upper Body",
+      "cooldown_frames": 15,
+      "joints": {
+        "required": [
+          "SHOULDER",
+          "ELBOW",
+          "WRIST"
+        ],
+        "bilateral": true
+      },
+      "metrics": {
+        "arm_spread": {
+          "calculation": "horizontal_distance_average",
+          "points": [
+            "wrist",
+            "wrist"
+          ]
+        },
+        "elbow_angle": {
+          "calculation": "bilateral_angle",
+          "points": [
+            "shoulder",
+            "elbow",
+            "wrist"
+          ]
+        }
+      },
+      "positions": {
+        "rep_position": {
+          "conditions": [
+            {
+              "metric": "elbow_angle",
+              "operator": ">",
+              "value": 150
+            }
+          ]
+        },
+        "starting_position": {
+          "conditions": [
+            {
+              "metric": "elbow_angle",
+              "operator": "<",
+              "value": 120
+            }
+          ]
+        }
+      },
+      "quality_levels": {
+        "excellent": {
+          "conditions": [
+            {
+              "metric": "elbow_angle",
+              "operator": ">",
+              "value": 160
+            }
+          ],
+          "message": "Excellent - Full stretch"
+        },
+        "good": {
+          "conditions": [
+            {
+              "metric": "elbow_angle",
+              "operator": ">",
+              "value": 150
+            }
+          ],
+          "message": "Good - Nearly full"
+        },
+        "default": {
+          "message": "Limited - Stretch more"
+        }
+      },
+      "instructions": {
+        "in_position": "SPREAD - Arms wide",
+        "return": "CLOSE - Bring together",
+        "ready": "READY - Begin fly"
+      }
+    },
+    "shoulder_press": {
+      "name": "Shoulder Press",
+      "description": "Tracks overhead press with full lockout",
+      "category": "Upper Body",
+      "cooldown_frames": 15,
+      "joints": {
+        "required": [
+          "SHOULDER",
+          "ELBOW",
+          "WRIST"
+        ],
+        "bilateral": true
+      },
+      "metrics": {
+        "elbow_angle": {
+          "calculation": "bilateral_angle",
+          "points": [
+            "shoulder",
+            "elbow",
+            "wrist"
+          ]
+        },
+        "wrist_height": {
+          "calculation": "vertical_distance_average",
+          "points": [
+            "wrist",
+            "shoulder"
+          ]
+        }
+      },
+      "positions": {
+        "rep_position": {
+          "conditions": [
+            {
+              "metric": "elbow_angle",
+              "operator": ">",
+              "value": 160
+            },
+            {
+              "metric": "wrist_height",
+              "operator": "abs_>",
+              "value": 0.175
+            }
+          ]
+        },
+        "starting_position": {
+          "conditions": [
+            {
+              "metric": "elbow_angle",
+              "operator": "<=",
+              "value": 130
+            },
+            {
+              "metric": "wrist_height",
+              "operator": ">=",
+              "value": -0.03
+            }
+          ]
+        }
+      },
+      "quality_levels": {
+        "excellent": {
+          "conditions": [
+            {
+              "metric": "elbow_angle",
+              "operator": ">",
+              "value": 170
+            },
+            {
+              "metric": "wrist_height",
+              "operator": "abs_>",
+              "value": 0.35
+            }
+          ],
+          "message": "Excellent - Full lockout"
+        },
+        "good": {
+          "conditions": [
+            {
+              "metric": "elbow_angle",
+              "operator": ">",
+              "value": 165
+            },
+            {
+              "metric": "wrist_height",
+              "operator": "abs_>",
+              "value": 0.3
+            }
+          ],
+          "message": "Good - Nearly full"
+        },
+        "fair": {
+          "conditions": [
+            {
+              "metric": "elbow_angle",
+              "operator": ">",
+              "value": 160
+            }
+          ],
+          "message": "Fair - Partial lockout"
+        },
+        "default": {
+          "message": "Incomplete - Extend more"
+        }
+      },
+      "instructions": {
+        "in_position": "OVERHEAD - Locked out",
+        "return": "LOWER - Control descent",
+        "ready": "READY - Press overhead"
+      }
+    },
+    "lateral_raise": {
+      "name": "Lateral Raise",
+      "description": "Tracks shoulder abduction",
+      "category": "Upper Body",
+      "cooldown_frames": 15,
+      "joints": {
+        "required": [
+          "HIP",
+          "SHOULDER",
+          "ELBOW"
+        ],
+        "bilateral": true
+      },
+      "metrics": {
+        "shoulder_angle": {
+          "calculation": "bilateral_angle",
+          "points": [
+            "hip",
+            "shoulder",
+            "elbow"
+          ]
+        }
+      },
+      "positions": {
+        "rep_position": {
+          "conditions": [
+            {
+              "metric": "shoulder_angle",
+              "operator": ">",
+              "value": 80
+            }
+          ]
+        },
+        "starting_position": {
+          "conditions": [
+            {
+              "metric": "shoulder_angle",
+              "operator": "<",
+              "value": 30
+            }
+          ]
+        }
+      },
+      "quality_levels": {
+        "excellent": {
+          "conditions": [
+            {
+              "metric": "shoulder_angle",
+              "operator": ">",
+              "value": 85
+            }
+          ],
+          "message": "Excellent - Full range"
+        },
+        "good": {
+          "conditions": [
+            {
+              "metric": "shoulder_angle",
+              "operator": ">",
+              "value": 75
+            }
+          ],
+          "message": "Good - Nearly full"
+        },
+        "default": {
+          "message": "Limited - Raise higher"
+        }
+      },
+      "instructions": {
+        "in_position": "UP - Extend fully",
+        "return": "DOWN - Return to start",
+        "ready": "READY - Begin lateral raise"
+      }
+    },
+    "front_raise": {
+      "name": "Front Raise",
+      "description": "Tracks forward arm raise to shoulder height",
+      "category": "Upper Body",
+      "cooldown_frames": 15,
+      "joints": {
+        "required": [
+          "SHOULDER",
+          "ELBOW",
+          "WRIST",
+          "HIP"
+        ],
+        "bilateral": true
+      },
+      "metrics": {
+        "shoulder_flexion": {
+          "calculation": "bilateral_angle",
+          "points": [
+            "hip",
+            "shoulder",
+            "wrist"
+          ]
+        }
+      },
+      "positions": {
+        "rep_position": {
+          "conditions": [
+            {
+              "metric": "shoulder_flexion",
+              "operator": ">",
+              "value": 80
+            }
+          ]
+        },
+        "starting_position": {
+          "conditions": [
+            {
+              "metric": "shoulder_flexion",
+              "operator": "<",
+              "value": 30
+            }
+          ]
+        }
+      },
+      "quality_levels": {
+        "excellent": {
+          "conditions": [
+            {
+              "metric": "shoulder_flexion",
+              "operator": ">",
+              "value": 90
+            }
+          ],
+          "message": "Excellent - Shoulder height"
+        },
+        "good": {
+          "conditions": [
+            {
+              "metric": "shoulder_flexion",
+              "operator": ">",
+              "value": 75
+            }
+          ],
+          "message": "Good - Nearly full"
+        },
+        "default": {
+          "message": "Limited - Raise higher"
+        }
+      },
+      "instructions": {
+        "in_position": "UP - Hold at shoulder height",
+        "return": "DOWN - Lower with control",
+        "ready": "READY - Raise arms forward"
+      }
+    },
+    "arnold_press": {
+      "name": "Arnold Press",
+      "description": "Tracks Arnold press with rotation",
+      "category": "Upper Body",
+      "cooldown_frames": 15,
+      "joints": {
+        "required": [
+          "SHOULDER",
+          "ELBOW",
+          "WRIST"
+        ],
+        "bilateral": true
+      },
+      "metrics": {
+        "elbow_angle": {
+          "calculation": "bilateral_angle",
+          "points": [
+            "shoulder",
+            "elbow",
+            "wrist"
+          ]
+        },
+        "wrist_height": {
+          "calculation": "vertical_distance_average",
+          "points": [
+            "wrist",
+            "shoulder"
+          ]
+        }
+      },
+      "positions": {
+        "rep_position": {
+          "conditions": [
+            {
+              "metric": "elbow_angle",
+              "operator": ">",
+              "value": 160
+            },
+            {
+              "metric": "wrist_height",
+              "operator": "abs_>",
+              "value": 0.18
+            }
+          ]
+        },
+        "starting_position": {
+          "conditions": [
+            {
+              "metric": "elbow_angle",
+              "operator": "<",
+              "value": 100
+            }
+          ]
+        }
+      },
+      "quality_levels": {
+        "excellent": {
+          "conditions": [
+            {
+              "metric": "elbow_angle",
+              "operator": ">",
+              "value": 170
+            }
+          ],
+          "message": "Excellent - Full extension"
+        },
+        "good": {
+          "conditions": [
+            {
+              "metric": "elbow_angle",
+              "operator": ">",
+              "value": 160
+            }
+          ],
+          "message": "Good - Nearly full"
+        },
+        "default": {
+          "message": "Incomplete - Extend more"
+        }
+      },
+      "instructions": {
+        "in_position": "OVERHEAD - Rotate and press",
+        "return": "LOWER - Rotate back",
+        "ready": "READY - Press with rotation"
+      }
+    },
+    "bicep_curl": {
+      "name": "Bicep Curl",
+      "description": "Tracks elbow flexion while keeping upper arm stable",
+      "category": "Upper Body",
+      "cooldown_frames": 15,
+      "joints": {
+        "required": [
+          "SHOULDER",
+          "ELBOW",
+          "WRIST"
+        ],
+        "bilateral": true
+      },
+      "metrics": {
+        "elbow_angle": {
+          "calculation": "bilateral_angle",
+          "points": [
+            "shoulder",
+            "elbow",
+            "wrist"
+          ]
+        },
+        "curl_height": {
+          "calculation": "vertical_distance_average",
+          "points": [
+            "shoulder",
+            "wrist"
+          ],
+          "absolute": true
+        }
+      },
+      "positions": {
+        "rep_position": {
+          "conditions": [
+            {
+              "metric": "elbow_angle",
+              "operator": "<",
+              "value": 50
+            }
+          ]
+        },
+        "starting_position": {
+          "conditions": [
+            {
+              "metric": "elbow_angle",
+              "operator": ">",
+              "value": 160
+            }
+          ]
+        }
+      },
+      "quality_levels": {
+        "excellent": {
+          "conditions": [
+            {
+              "metric": "elbow_angle",
+              "operator": "<",
+              "value": 40
+            }
+          ],
+          "message": "Excellent - Full contraction"
+        },
+        "good": {
+          "conditions": [
+            {
+              "metric": "elbow_angle",
+              "operator": "<",
+              "value": 50
+            }
+          ],
+          "message": "Good - Full curl"
+        },
+        "default": {
+          "message": "Partial - Curl higher"
+        }
+      },
+      "instructions": {
+        "in_position": "CURLED - Squeeze biceps",
+        "return": "LOWER - Control descent",
+        "ready": "READY - Curl weights to shoulders"
+      }
+    },
+    "hammer_curl": {
+      "name": "Hammer Curl",
+      "description": "Tracks hammer curls with neutral grip",
+      "category": "Upper Body",
+      "cooldown_frames": 15,
+      "joints": {
+        "required": [
+          "SHOULDER",
+          "ELBOW",
+          "WRIST"
+        ],
+        "bilateral": true
+      },
+      "metrics": {
+        "elbow_angle": {
+          "calculation": "bilateral_angle",
+          "points": [
+            "shoulder",
+            "elbow",
+            "wrist"
+          ]
+        }
+      },
+      "positions": {
+        "rep_position": {
+          "conditions": [
+            {
+              "metric": "elbow_angle",
+              "operator": "<",
+              "value": 50
+            }
+          ]
+        },
+        "starting_position": {
+          "conditions": [
+            {
+              "metric": "elbow_angle",
+              "operator": ">",
+              "value": 160
+            }
+          ]
+        }
+      },
+      "quality_levels": {
+        "excellent": {
+          "conditions": [
+            {
+              "metric": "elbow_angle",
+              "operator": "<",
+              "value": 45
+            }
+          ],
+          "message": "Excellent - Full contraction"
+        },
+        "good": {
+          "conditions": [
+            {
+              "metric": "elbow_angle",
+              "operator": "<",
+              "value": 55
+            }
+          ],
+          "message": "Good - Full curl"
+        },
+        "default": {
+          "message": "Partial - Curl higher"
+        }
+      },
+      "instructions": {
+        "in_position": "CURLED - Squeeze",
+        "return": "LOWER - Control",
+        "ready": "READY - Hammer curl"
+      }
+    },
+    "concentration_curl": {
+      "name": "Concentration Curl",
+      "description": "Tracks concentration curls with isolated movement",
+      "category": "Upper Body",
+      "cooldown_frames": 15,
+      "joints": {
+        "required": [
+          "SHOULDER",
+          "ELBOW",
+          "WRIST"
+        ],
+        "bilateral": false
+      },
+      "metrics": {
+        "elbow_angle": {
+          "calculation": "unilateral_angle",
+          "side": "right",
+          "points": [
+            "shoulder",
+            "elbow",
+            "wrist"
+          ]
+        }
+      },
+      "positions": {
+        "rep_position": {
+          "conditions": [
+            {
+              "metric": "elbow_angle",
+              "operator": "<",
+              "value": 45
+            }
+          ]
+        },
+        "starting_position": {
+          "conditions": [
+            {
+              "metric": "elbow_angle",
+              "operator": ">",
+              "value": 160
+            }
+          ]
+        }
+      },
+      "quality_levels": {
+        "excellent": {
+          "conditions": [
+            {
+              "metric": "elbow_angle",
+              "operator": "<",
+              "value": 40
+            }
+          ],
+          "message": "Excellent - Peak contraction"
+        },
+        "good": {
+          "conditions": [
+            {
+              "metric": "elbow_angle",
+              "operator": "<",
+              "value": 50
+            }
+          ],
+          "message": "Good - Full curl"
+        },
+        "default": {
+          "message": "Partial - Curl more"
+        }
+      },
+      "instructions": {
+        "in_position": "CURLED - Hold squeeze",
+        "return": "LOWER - Control",
+        "ready": "READY - Concentrate and curl"
+      }
+    },
+    "tricep_dip": {
+      "name": "Tricep Dip",
+      "description": "Tracks tricep dips with elbow bend",
+      "category": "Upper Body",
+      "cooldown_frames": 15,
+      "joints": {
+        "required": [
+          "SHOULDER",
+          "ELBOW",
+          "WRIST"
+        ],
+        "bilateral": true
+      },
+      "metrics": {
+        "elbow_angle": {
+          "calculation": "bilateral_angle",
+          "points": [
+            "shoulder",
+            "elbow",
+            "wrist"
+          ]
+        }
+      },
+      "positions": {
+        "rep_position": {
+          "conditions": [
+            {
+              "metric": "elbow_angle",
+              "operator": "<",
+              "value": 90
+            }
+          ]
+        },
+        "starting_position": {
+          "conditions": [
+            {
+              "metric": "elbow_angle",
+              "operator": ">",
+              "value": 160
+            }
+          ]
+        }
+      },
+      "quality_levels": {
+        "excellent": {
+          "conditions": [
+            {
+              "metric": "elbow_angle",
+              "operator": "<",
+              "value": 80
+            }
+          ],
+          "message": "Excellent - Full range"
+        },
+        "good": {
+          "conditions": [
+            {
+              "metric": "elbow_angle",
+              "operator": "<",
+              "value": 95
+            }
+          ],
+          "message": "Good - Nearly full"
+        },
+        "default": {
+          "message": "Shallow - Go lower"
+        }
+      },
+      "instructions": {
+        "in_position": "DOWN - Lower body",
+        "return": "UP - Push up",
+        "ready": "READY - Begin dip"
+      }
+    },
+    "overhead_tricep_extension": {
+      "name": "Overhead Tricep Extension",
+      "description": "Tracks overhead tricep extensions",
+      "category": "Upper Body",
+      "cooldown_frames": 15,
+      "joints": {
+        "required": [
+          "SHOULDER",
+          "ELBOW",
+          "WRIST"
+        ],
+        "bilateral": true
+      },
+      "metrics": {
+        "elbow_angle": {
+          "calculation": "bilateral_angle",
+          "points": [
+            "shoulder",
+            "elbow",
+            "wrist"
+          ]
+        }
+      },
+      "positions": {
+        "rep_position": {
+          "conditions": [
+            {
+              "metric": "elbow_angle",
+              "operator": ">",
+              "value": 160
+            }
+          ]
+        },
+        "starting_position": {
+          "conditions": [
+            {
+              "metric": "elbow_angle",
+              "operator": "<",
+              "value": 90
+            }
+          ]
+        }
+      },
+      "quality_levels": {
+        "excellent": {
+          "conditions": [
+            {
+              "metric": "elbow_angle",
+              "operator": ">",
+              "value": 170
+            }
+          ],
+          "message": "Excellent - Full extension"
+        },
+        "good": {
+          "conditions": [
+            {
+              "metric": "elbow_angle",
+              "operator": ">",
+              "value": 160
+            }
+          ],
+          "message": "Good - Nearly full"
+        },
+        "default": {
+          "message": "Incomplete - Extend more"
+        }
+      },
+      "instructions": {
+        "in_position": "EXTENDED - Lock out",
+        "return": "LOWER - Behind head",
+        "ready": "READY - Extend overhead"
+      }
+    },
+    "pull_up": {
+      "name": "Pull Up",
+      "description": "Tracks chin over bar and full extension",
+      "category": "Upper Body",
+      "cooldown_frames": 15,
+      "joints": {
+        "required": [
+          "SHOULDER",
+          "ELBOW",
+          "WRIST"
+        ],
+        "bilateral": true
+      },
+      "metrics": {
+        "elbow_angle": {
+          "calculation": "bilateral_angle",
+          "points": [
+            "shoulder",
+            "elbow",
+            "wrist"
+          ]
+        }
+      },
+      "positions": {
+        "rep_position": {
+          "conditions": [
+            {
+              "metric": "elbow_angle",
+              "operator": "<",
+              "value": 80
+            }
+          ]
+        },
+        "starting_position": {
+          "conditions": [
+            {
+              "metric": "elbow_angle",
+              "operator": ">",
+              "value": 160
+            }
+          ]
+        }
+      },
+      "quality_levels": {
+        "excellent": {
+          "conditions": [
+            {
+              "metric": "elbow_angle",
+              "operator": "<",
+              "value": 60
+            }
+          ],
+          "message": "Excellent - Chin well above bar"
+        },
+        "good": {
+          "conditions": [
+            {
+              "metric": "elbow_angle",
+              "operator": "<",
+              "value": 80
+            }
+          ],
+          "message": "Good - Chin over bar"
+        },
+        "default": {
+          "message": "Incomplete - Pull higher"
+        }
+      },
+      "instructions": {
+        "in_position": "TOP - Chin over bar",
+        "return": "LOWER - Full extension",
+        "ready": "READY - Pull up"
+      }
+    },
+    "chin_up": {
+      "name": "Chin-Up",
+      "description": "Tracks chin-ups with underhand grip",
+      "category": "Upper Body",
+      "cooldown_frames": 15,
+      "joints": {
+        "required": [
+          "SHOULDER",
+          "ELBOW",
+          "WRIST"
+        ],
+        "bilateral": true
+      },
+      "metrics": {
+        "elbow_angle": {
+          "calculation": "bilateral_angle",
+          "points": [
+            "shoulder",
+            "elbow",
+            "wrist"
+          ]
+        }
+      },
+      "positions": {
+        "rep_position": {
+          "conditions": [
+            {
+              "metric": "elbow_angle",
+              "operator": "<",
+              "value": 75
+            }
+          ]
+        },
+        "starting_position": {
+          "conditions": [
+            {
+              "metric": "elbow_angle",
+              "operator": ">",
+              "value": 160
+            }
+          ]
+        }
+      },
+      "quality_levels": {
+        "excellent": {
+          "conditions": [
+            {
+              "metric": "elbow_angle",
+              "operator": "<",
+              "value": 60
+            }
+          ],
+          "message": "Excellent - Full pull"
+        },
+        "good": {
+          "conditions": [
+            {
+              "metric": "elbow_angle",
+              "operator": "<",
+              "value": 80
+            }
+          ],
+          "message": "Good - Chin over"
+        },
+        "default": {
+          "message": "Incomplete - Pull higher"
+        }
+      },
+      "instructions": {
+        "in_position": "TOP - Chin over bar",
+        "return": "LOWER - Full extension",
+        "ready": "READY - Pull up"
+      }
+    },
+    "barbell_row": {
+      "name": "Barbell Row",
+      "description": "Tracks bent-over row with elbow pull",
+      "category": "Upper Body",
+      "cooldown_frames": 15,
+      "joints": {
+        "required": [
+          "SHOULDER",
+          "ELBOW",
+          "WRIST"
+        ],
+        "bilateral": true
+      },
+      "metrics": {
+        "elbow_angle": {
+          "calculation": "bilateral_angle",
+          "points": [
+            "shoulder",
+            "elbow",
+            "wrist"
+          ]
+        }
+      },
+      "positions": {
+        "rep_position": {
+          "conditions": [
+            {
+              "metric": "elbow_angle",
+              "operator": "<",
+              "value": 90
+            }
+          ]
+        },
+        "starting_position": {
+          "conditions": [
+            {
+              "metric": "elbow_angle",
+              "operator": ">",
+              "value": 160
+            }
+          ]
+        }
+      },
+      "quality_levels": {
+        "excellent": {
+          "conditions": [
+            {
+              "metric": "elbow_angle",
+              "operator": "<",
+              "value": 80
+            }
+          ],
+          "message": "Excellent - Full contraction"
+        },
+        "good": {
+          "conditions": [
+            {
+              "metric": "elbow_angle",
+              "operator": "<",
+              "value": 90
+            }
+          ],
+          "message": "Good - Solid pull"
+        },
+        "default": {
+          "message": "Partial - Pull higher"
+        }
+      },
+      "instructions": {
+        "in_position": "PULLING - Squeeze shoulder blades",
+        "return": "EXTEND - Lower with control",
+        "ready": "READY - Hinge and pull to chest"
+      }
+    },
+    "inverted_row": {
+      "name": "Inverted Row",
+      "description": "Tracks inverted rows with horizontal pull",
+      "category": "Upper Body",
+      "cooldown_frames": 15,
+      "joints": {
+        "required": [
+          "SHOULDER",
+          "ELBOW",
+          "WRIST"
+        ],
+        "bilateral": true
+      },
+      "metrics": {
+        "elbow_angle": {
+          "calculation": "bilateral_angle",
+          "points": [
+            "shoulder",
+            "elbow",
+            "wrist"
+          ]
+        }
+      },
+      "positions": {
+        "rep_position": {
+          "conditions": [
+            {
+              "metric": "elbow_angle",
+              "operator": "<",
+              "value": 90
+            }
+          ]
+        },
+        "starting_position": {
+          "conditions": [
+            {
+              "metric": "elbow_angle",
+              "operator": ">",
+              "value": 160
+            }
+          ]
+        }
+      },
+      "quality_levels": {
+        "excellent": {
+          "conditions": [
+            {
+              "metric": "elbow_angle",
+              "operator": "<",
+              "value": 75
+            }
+          ],
+          "message": "Excellent - Chest to bar"
+        },
+        "good": {
+          "conditions": [
+            {
+              "metric": "elbow_angle",
+              "operator": "<",
+              "value": 90
+            }
+          ],
+          "message": "Good - Full pull"
+        },
+        "default": {
+          "message": "Partial - Pull higher"
+        }
+      },
+      "instructions": {
+        "in_position": "PULLED - Chest to bar",
+        "return": "LOWER - Extend arms",
+        "ready": "READY - Pull chest to bar"
+      }
+    },
+    "superman": {
+      "name": "Superman",
+      "description": "Tracks superman holds with back extension",
+      "category": "Upper Body",
+      "cooldown_frames": 30,
+      "joints": {
+        "required": [
+          "SHOULDER",
+          "HIP",
+          "KNEE"
+        ],
+        "bilateral": false
+      },
+      "metrics": {
+        "body_extension": {
+          "calculation": "unilateral_angle",
+          "side": "left",
+          "points": [
+            "shoulder",
+            "hip",
+            "knee"
+          ]
+        }
+      },
+      "positions": {
+        "rep_position": {
+          "conditions": [
+            {
+              "metric": "body_extension",
+              "operator": ">",
+              "value": 160
+            }
+          ]
+        },
+        "starting_position": {
+          "conditions": [
+            {
+              "metric": "body_extension",
+              "operator": "<",
+              "value": 140
+            }
+          ]
+        }
+      },
+      "quality_levels": {
+        "excellent": {
+          "conditions": [
+            {
+              "metric": "body_extension",
+              "operator": ">",
+              "value": 170
+            }
+          ],
+          "message": "Excellent - Full extension"
+        },
+        "good": {
+          "conditions": [
+            {
+              "metric": "body_extension",
+              "operator": ">",
+              "value": 160
+            }
+          ],
+          "message": "Good - Nearly full"
+        },
+        "default": {
+          "message": "Limited - Extend more"
+        }
+      },
+      "instructions": {
+        "in_position": "EXTENDED - Hold superman",
+        "return": "LOWER - Return to ground",
+        "ready": "READY - Lift arms and legs"
+      }
+    },
+    "squat": {
+      "name": "Squat",
+      "description": "Tracks full depth squats with hip-knee alignment",
+      "category": "Lower Body",
+      "cooldown_frames": 15,
+      "joints": {
+        "required": [
+          "HIP",
+          "KNEE",
+          "ANKLE"
+        ],
+        "bilateral": true
+      },
+      "metrics": {
+        "knee_angle": {
+          "calculation": "bilateral_angle",
+          "points": [
+            "hip",
+            "knee",
+            "ankle"
+          ]
+        },
+        "squat_depth": {
+          "calculation": "vertical_distance_average",
+          "points": [
+            "hip",
+            "knee"
+          ],
+          "absolute": true
+        }
+      },
+      "positions": {
+        "rep_position": {
+          "conditions": [
+            {
+              "metric": "squat_depth",
+              "operator": "<",
+              "value": 0.15
+            }
+          ]
+        },
+        "starting_position": {
+          "conditions": [
+            {
+              "metric": "knee_angle",
+              "operator": ">",
+              "value": 140
+            },
+            {
+              "metric": "squat_depth",
+              "operator": ">",
+              "value": 0.18
+            }
+          ]
+        }
+      },
+      "quality_levels": {
+        "excellent": {
+          "conditions": [
+            {
+              "metric": "squat_depth",
+              "operator": "<",
+              "value": 0.11
+            }
+          ],
+          "message": "Excellent - ATG (Ass to Grass)"
+        },
+        "good": {
+          "conditions": [
+            {
+              "metric": "squat_depth",
+              "operator": "<",
+              "value": 0.15
+            }
+          ],
+          "message": "Good - Full depth / Parallel"
+        },
+        "fair": {
+          "conditions": [
+            {
+              "metric": "squat_depth",
+              "operator": "<",
+              "value": 0.2
+            }
+          ],
+          "message": "Fair - Just below parallel"
+        },
+        "default": {
+          "message": "Shallow - Go deeper"
+        }
+      },
+      "instructions": {
+        "in_position": "FULL SQUAT - Hold at bottom",
+        "return": "STAND UP - Return to top",
+        "ready": "READY - Squat down"
+      }
+    },
+    "jump_squat": {
+      "name": "Jump Squat",
+      "description": "Tracks explosive jump squats",
+      "category": "Lower Body",
+      "cooldown_frames": 20,
+      "joints": {
+        "required": [
+          "HIP",
+          "KNEE",
+          "ANKLE"
+        ],
+        "bilateral": true
+      },
+      "metrics": {
+        "knee_angle": {
+          "calculation": "bilateral_angle",
+          "points": [
+            "hip",
+            "knee",
+            "ankle"
+          ]
+        },
+        "squat_depth": {
+          "calculation": "vertical_distance_average",
+          "points": [
+            "hip",
+            "knee"
+          ],
+          "absolute": true
+        }
+      },
+      "positions": {
+        "rep_position": {
+          "conditions": [
+            {
+              "metric": "squat_depth",
+              "operator": "<",
+              "value": 0.18
+            }
+          ]
+        },
+        "starting_position": {
+          "conditions": [
+            {
+              "metric": "knee_angle",
+              "operator": ">",
+              "value": 140
+            }
+          ]
+        }
+      },
+      "quality_levels": {
+        "excellent": {
+          "conditions": [
+            {
+              "metric": "squat_depth",
+              "operator": "<",
+              "value": 0.13
+            }
+          ],
+          "message": "Excellent - Deep jump"
+        },
+        "good": {
+          "conditions": [
+            {
+              "metric": "squat_depth",
+              "operator": "<",
+              "value": 0.18
+            }
+          ],
+          "message": "Good - Full jump"
+        },
+        "default": {
+          "message": "Shallow - Squat deeper"
+        }
+      },
+      "instructions": {
+        "in_position": "JUMP - Explosive power",
+        "return": "LAND - Control landing",
+        "ready": "READY - Jump squat"
+      }
+    },
+    "pistol_squat": {
+      "name": "Pistol Squat",
+      "description": "Tracks single-leg squats",
+      "category": "Lower Body",
+      "cooldown_frames": 20,
+      "joints": {
+        "required": [
+          "HIP",
+          "KNEE",
+          "ANKLE"
+        ],
+        "bilateral": false
+      },
+      "metrics": {
+        "knee_angle": {
+          "calculation": "unilateral_angle",
+          "side": "left",
+          "points": [
+            "hip",
+            "knee",
+            "ankle"
+          ]
+        }
+      },
+      "positions": {
+        "rep_position": {
+          "conditions": [
+            {
+              "metric": "knee_angle",
+              "operator": "<",
+              "value": 90
+            }
+          ]
+        },
+        "starting_position": {
+          "conditions": [
+            {
+              "metric": "knee_angle",
+              "operator": ">",
+              "value": 160
+            }
+          ]
+        }
+      },
+      "quality_levels": {
+        "excellent": {
+          "conditions": [
+            {
+              "metric": "knee_angle",
+              "operator": "<",
+              "value": 80
+            }
+          ],
+          "message": "Excellent - Full depth"
+        },
+        "good": {
+          "conditions": [
+            {
+              "metric": "knee_angle",
+              "operator": "<",
+              "value": 95
+            }
+          ],
+          "message": "Good - Nearly parallel"
+        },
+        "default": {
+          "message": "Shallow - Go lower"
+        }
+      },
+      "instructions": {
+        "in_position": "BOTTOM - Hold single leg squat",
+        "return": "STAND - Push up",
+        "ready": "READY - Single leg squat down"
+      }
+    },
+    "lunge": {
+      "name": "Lunge",
+      "description": "Tracks forward lunge with knee tracking",
+      "category": "Lower Body",
+      "cooldown_frames": 15,
+      "joints": {
+        "required": [
+          "HIP",
+          "KNEE",
+          "ANKLE"
+        ],
+        "bilateral": true
+      },
+      "metrics": {
+        "front_knee_angle": {
+          "calculation": "unilateral_angle",
+          "side": "left",
+          "points": [
+            "hip",
+            "knee",
+            "ankle"
+          ]
+        }
+      },
+      "positions": {
+        "rep_position": {
+          "conditions": [
+            {
+              "metric": "front_knee_angle",
+              "operator": "<",
+              "value": 100
+            }
+          ]
+        },
+        "starting_position": {
+          "conditions": [
+            {
+              "metric": "front_knee_angle",
+              "operator": ">",
+              "value": 160
+            }
+          ]
+        }
+      },
+      "quality_levels": {
+        "excellent": {
+          "conditions": [
+            {
+              "metric": "front_knee_angle",
+              "operator": "<",
+              "value": 90
+            }
+          ],
+          "message": "Excellent - Deep lunge"
+        },
+        "good": {
+          "conditions": [
+            {
+              "metric": "front_knee_angle",
+              "operator": "<",
+              "value": 100
+            }
+          ],
+          "message": "Good - Proper depth"
+        },
+        "default": {
+          "message": "Shallow - Go lower"
+        }
+      },
+      "instructions": {
+        "in_position": "BOTTOM - Hold lunge",
+        "return": "UP - Return to standing",
+        "ready": "READY - Lunge forward"
+      }
+    },
+    "bulgarian_split_squat": {
+      "name": "Bulgarian Split Squat",
+      "description": "Tracks split squats with elevated rear leg",
+      "category": "Lower Body",
+      "cooldown_frames": 15,
+      "joints": {
+        "required": [
+          "HIP",
+          "KNEE",
+          "ANKLE"
+        ],
+        "bilateral": true
+      },
+      "metrics": {
+        "front_knee_angle": {
+          "calculation": "unilateral_angle",
+          "side": "left",
+          "points": [
+            "hip",
+            "knee",
+            "ankle"
+          ]
+        }
+      },
+      "positions": {
+        "rep_position": {
+          "conditions": [
+            {
+              "metric": "front_knee_angle",
+              "operator": "<",
+              "value": 90
+            }
+          ]
+        },
+        "starting_position": {
+          "conditions": [
+            {
+              "metric": "front_knee_angle",
+              "operator": ">",
+              "value": 150
+            }
+          ]
+        }
+      },
+      "quality_levels": {
+        "excellent": {
+          "conditions": [
+            {
+              "metric": "front_knee_angle",
+              "operator": "<",
+              "value": 85
+            }
+          ],
+          "message": "Excellent - Deep split"
+        },
+        "good": {
+          "conditions": [
+            {
+              "metric": "front_knee_angle",
+              "operator": "<",
+              "value": 95
+            }
+          ],
+          "message": "Good - Full depth"
+        },
+        "default": {
+          "message": "Shallow - Go lower"
+        }
+      },
+      "instructions": {
+        "in_position": "BOTTOM - Hold split squat",
+        "return": "UP - Push to start",
+        "ready": "READY - Lower into split squat"
+      }
+    },
+    "step_up": {
+      "name": "Step-Up",
+      "description": "Tracks step-ups onto elevated platform",
+      "category": "Lower Body",
+      "cooldown_frames": 15,
+      "joints": {
+        "required": [
+          "HIP",
+          "KNEE",
+          "ANKLE"
+        ],
+        "bilateral": true
+      },
+      "metrics": {
+        "knee_angle": {
+          "calculation": "bilateral_angle",
+          "points": [
+            "hip",
+            "knee",
+            "ankle"
+          ]
+        }
+      },
+      "positions": {
+        "rep_position": {
+          "conditions": [
+            {
+              "metric": "knee_angle",
+              "operator": ">",
+              "value": 160
+            }
+          ]
+        },
+        "starting_position": {
+          "conditions": [
+            {
+              "metric": "knee_angle",
+              "operator": "<",
+              "value": 100
+            }
+          ]
+        }
+      },
+      "quality_levels": {
+        "excellent": {
+          "conditions": [
+            {
+              "metric": "knee_angle",
+              "operator": ">",
+              "value": 170
+            }
+          ],
+          "message": "Excellent - Full extension"
+        },
+        "good": {
+          "conditions": [
+            {
+              "metric": "knee_angle",
+              "operator": ">",
+              "value": 160
+            }
+          ],
+          "message": "Good - Nearly full"
+        },
+        "default": {
+          "message": "Incomplete - Extend fully"
+        }
+      },
+      "instructions": {
+        "in_position": "TOP - Stand tall",
+        "return": "STEP DOWN - Control descent",
+        "ready": "READY - Step up"
+      }
+    },
+    "wall_sit": {
+      "name": "Wall Sit",
+      "description": "Tracks isometric wall sit hold",
+      "category": "Lower Body",
+      "cooldown_frames": 60,
+      "joints": {
+        "required": [
+          "HIP",
+          "KNEE",
+          "ANKLE"
+        ],
+        "bilateral": true
+      },
+      "metrics": {
+        "knee_angle": {
+          "calculation": "bilateral_angle",
+          "points": [
+            "hip",
+            "knee",
+            "ankle"
+          ]
+        }
+      },
+      "positions": {
+        "rep_position": {
+          "conditions": [
+            {
+              "metric": "knee_angle",
+              "operator": "<",
+              "value": 100
+            },
+            {
+              "metric": "knee_angle",
+              "operator": ">",
+              "value": 80
+            }
+          ]
+        },
+        "starting_position": {
+          "conditions": [
+            {
+              "metric": "knee_angle",
+              "operator": ">",
+              "value": 160
+            }
+          ]
+        }
+      },
+      "quality_levels": {
+        "excellent": {
+          "conditions": [
+            {
+              "metric": "knee_angle",
+              "operator": "<",
+              "value": 95
+            },
+            {
+              "metric": "knee_angle",
+              "operator": ">",
+              "value": 85
+            }
+          ],
+          "message": "Excellent - 90 degree hold"
+        },
+        "good": {
+          "conditions": [
+            {
+              "metric": "knee_angle",
+              "operator": "<",
+              "value": 100
+            }
+          ],
+          "message": "Good - Proper position"
+        },
+        "default": {
+          "message": "Adjust - Get to 90 degrees"
+        }
+      },
+      "instructions": {
+        "in_position": "HOLD - Maintain wall sit",
+        "return": "STAND - Rest",
+        "ready": "READY - Lower to wall sit"
+      }
+    },
+    "deadlift": {
+      "name": "Deadlift",
+      "description": "Tracks hip hinge and lockout",
+      "category": "Full Body",
+      "cooldown_frames": 20,
+      "joints": {
+        "required": [
+          "SHOULDER",
+          "HIP",
+          "KNEE",
+          "ANKLE"
+        ],
+        "bilateral": true
+      },
+      "metrics": {
+        "hip_angle": {
+          "calculation": "bilateral_angle",
+          "points": [
+            "shoulder",
+            "hip",
+            "knee"
+          ]
+        },
+        "knee_angle": {
+          "calculation": "bilateral_angle",
+          "points": [
+            "hip",
+            "knee",
+            "ankle"
+          ]
+        }
+      },
+      "positions": {
+        "rep_position": {
+          "conditions": [
+            {
+              "metric": "hip_angle",
+              "operator": ">",
+              "value": 170
+            },
+            {
+              "metric": "knee_angle",
+              "operator": ">",
+              "value": 170
+            }
+          ]
+        },
+        "starting_position": {
+          "conditions": [
+            {
+              "metric": "hip_angle",
+              "operator": "<",
+              "value": 110
+            }
+          ]
+        }
+      },
+      "quality_levels": {
+        "excellent": {
+          "conditions": [
+            {
+              "metric": "hip_angle",
+              "operator": ">",
+              "value": 175
+            }
+          ],
+          "message": "Excellent - Full lockout"
+        },
+        "good": {
+          "conditions": [
+            {
+              "metric": "hip_angle",
+              "operator": ">",
+              "value": 170
+            }
+          ],
+          "message": "Good - Strong lockout"
+        },
+        "default": {
+          "message": "Incomplete - Lock out hips"
+        }
+      },
+      "instructions": {
+        "in_position": "LOCKED OUT - Stand tall",
+        "return": "LOWER - Control the weight",
+        "ready": "READY - Pull to lockout"
+      }
+    },
+    "romanian_deadlift": {
+      "name": "Romanian Deadlift",
+      "description": "Tracks straight-leg hip hinge for hamstrings",
+      "category": "Lower Body",
+      "cooldown_frames": 15,
+      "joints": {
+        "required": [
+          "SHOULDER",
+          "HIP",
+          "KNEE",
+          "ANKLE"
+        ],
+        "bilateral": true
+      },
+      "metrics": {
+        "hip_angle": {
+          "calculation": "bilateral_angle",
+          "points": [
+            "shoulder",
+            "hip",
+            "knee"
+          ]
+        },
+        "knee_angle": {
+          "calculation": "bilateral_angle",
+          "points": [
+            "hip",
+            "knee",
+            "ankle"
+          ]
+        }
+      },
+      "positions": {
+        "rep_position": {
+          "conditions": [
+            {
+              "metric": "hip_angle",
+              "operator": "<",
+              "value": 100
+            },
+            {
+              "metric": "knee_angle",
+              "operator": ">",
+              "value": 160
+            }
+          ]
+        },
+        "starting_position": {
+          "conditions": [
+            {
+              "metric": "hip_angle",
+              "operator": ">",
+              "value": 165
+            }
+          ]
+        }
+      },
+      "quality_levels": {
+        "excellent": {
+          "conditions": [
+            {
+              "metric": "hip_angle",
+              "operator": "<",
+              "value": 95
+            },
+            {
+              "metric": "knee_angle",
+              "operator": ">",
+              "value": 165
+            }
+          ],
+          "message": "Excellent - Deep stretch, straight legs"
+        },
+        "good": {
+          "conditions": [
+            {
+              "metric": "hip_angle",
+              "operator": "<",
+              "value": 105
+            }
+          ],
+          "message": "Good - Good hamstring stretch"
+        },
+        "default": {
+          "message": "Shallow - Go deeper"
+        }
+      },
+      "instructions": {
+        "in_position": "HINGING - Feel hamstring stretch",
+        "return": "STAND UP - Drive hips forward",
+        "ready": "READY - Hinge at hips, keep legs straight"
+      }
+    },
+    "good_morning": {
+      "name": "Good Morning",
+      "description": "Tracks good mornings with hip hinge",
+      "category": "Lower Body",
+      "cooldown_frames": 15,
+      "joints": {
+        "required": [
+          "SHOULDER",
+          "HIP",
+          "KNEE"
+        ],
+        "bilateral": true
+      },
+      "metrics": {
+        "hip_angle": {
+          "calculation": "bilateral_angle",
+          "points": [
+            "shoulder",
+            "hip",
+            "knee"
+          ]
+        }
+      },
+      "positions": {
+        "rep_position": {
+          "conditions": [
+            {
+              "metric": "hip_angle",
+              "operator": "<",
+              "value": 100
+            }
+          ]
+        },
+        "starting_position": {
+          "conditions": [
+            {
+              "metric": "hip_angle",
+              "operator": ">",
+              "value": 165
+            }
+          ]
+        }
+      },
+      "quality_levels": {
+        "excellent": {
+          "conditions": [
+            {
+              "metric": "hip_angle",
+              "operator": "<",
+              "value": 90
+            }
+          ],
+          "message": "Excellent - Deep hinge"
+        },
+        "good": {
+          "conditions": [
+            {
+              "metric": "hip_angle",
+              "operator": "<",
+              "value": 100
+            }
+          ],
+          "message": "Good - Full hinge"
+        },
+        "default": {
+          "message": "Shallow - Hinge deeper"
+        }
+      },
+      "instructions": {
+        "in_position": "HINGED - Feel stretch",
+        "return": "STAND - Drive hips forward",
+        "ready": "READY - Hinge at hips"
+      }
+    },
+    "calf_raise": {
+      "name": "Calf Raise",
+      "description": "Tracks ankle extension and heel lift",
+      "category": "Lower Body",
+      "cooldown_frames": 15,
+      "joints": {
+        "required": [
+          "KNEE",
+          "ANKLE",
+          "HEEL",
+          "FOOT_INDEX"
+        ],
+        "bilateral": true
+      },
+      "metrics": {
+        "ankle_angle": {
+          "calculation": "bilateral_angle",
+          "points": [
+            "knee",
+            "ankle",
+            "foot_index"
+          ]
+        },
+        "heel_height": {
+          "calculation": "vertical_distance_average",
+          "points": [
+            "heel",
+            "ankle"
+          ],
+          "absolute": true
+        }
+      },
+      "positions": {
+        "rep_position": {
+          "conditions": [
+            {
+              "metric": "heel_height",
+              "operator": ">",
+              "value": 0.08
+            }
+          ]
+        },
+        "starting_position": {
+          "conditions": [
+            {
+              "metric": "heel_height",
+              "operator": "<",
+              "value": 0.04
+            }
+          ]
+        }
+      },
+      "quality_levels": {
+        "excellent": {
+          "conditions": [
+            {
+              "metric": "heel_height",
+              "operator": ">",
+              "value": 0.12
+            }
+          ],
+          "message": "Excellent - Full extension"
+        },
+        "good": {
+          "conditions": [
+            {
+              "metric": "heel_height",
+              "operator": ">",
+              "value": 0.08
+            }
+          ],
+          "message": "Good - Adequate height"
+        },
+        "default": {
+          "message": "Shallow - Raise higher"
+        }
+      },
+      "instructions": {
+        "in_position": "RAISED - Hold at top",
+        "return": "LOWER - Control descent",
+        "ready": "READY - Push up on toes"
+      }
+    },
+    "plank": {
+      "name": "Plank",
+      "description": "Tracks plank with body alignment",
+      "category": "Core",
+      "cooldown_frames": 60,
+      "joints": {
+        "required": [
+          "SHOULDER",
+          "HIP",
+          "ANKLE"
+        ],
+        "bilateral": false
+      },
+      "metrics": {
+        "body_angle": {
+          "calculation": "unilateral_angle",
+          "side": "left",
+          "points": [
+            "shoulder",
+            "hip",
+            "ankle"
+          ]
+        }
+      },
+      "positions": {
+        "rep_position": {
+          "conditions": [
+            {
+              "metric": "body_angle",
+              "operator": ">",
+              "value": 160
+            },
+            {
+              "metric": "body_angle",
+              "operator": "<",
+              "value": 180
+            }
+          ]
+        },
+        "starting_position": {
+          "conditions": [
+            {
+              "metric": "body_angle",
+              "operator": "<",
+              "value": 140
+            }
+          ]
+        }
+      },
+      "quality_levels": {
+        "excellent": {
+          "conditions": [
+            {
+              "metric": "body_angle",
+              "operator": ">",
+              "value": 170
+            },
+            {
+              "metric": "body_angle",
+              "operator": "<",
+              "value": 180
+            }
+          ],
+          "message": "Excellent - Perfect alignment"
+        },
+        "good": {
+          "conditions": [
+            {
+              "metric": "body_angle",
+              "operator": ">",
+              "value": 160
+            }
+          ],
+          "message": "Good - Maintain form"
+        },
+        "default": {
+          "message": "Poor - Straighten body"
+        }
+      },
+      "instructions": {
+        "in_position": "HOLD - Maintain plank position",
+        "return": "REST - Lower to ground",
+        "ready": "READY - Get into plank"
+      }
+    },
+    "sit_up": {
+      "name": "Sit-Up",
+      "description": "Tracks sit-ups with torso flexion",
+      "category": "Core",
+      "cooldown_frames": 15,
+      "joints": {
+        "required": [
+          "SHOULDER",
+          "HIP",
+          "KNEE"
+        ],
+        "bilateral": false
+      },
+      "metrics": {
+        "torso_angle": {
+          "calculation": "unilateral_angle",
+          "side": "left",
+          "points": [
+            "shoulder",
+            "hip",
+            "knee"
+          ]
+        }
+      },
+      "positions": {
+        "rep_position": {
+          "conditions": [
+            {
+              "metric": "torso_angle",
+              "operator": "<",
+              "value": 60
+            }
+          ]
+        },
+        "starting_position": {
+          "conditions": [
+            {
+              "metric": "torso_angle",
+              "operator": ">",
+              "value": 140
+            }
+          ]
+        }
+      },
+      "quality_levels": {
+        "excellent": {
+          "conditions": [
+            {
+              "metric": "torso_angle",
+              "operator": "<",
+              "value": 50
+            }
+          ],
+          "message": "Excellent - Full sit-up"
+        },
+        "good": {
+          "conditions": [
+            {
+              "metric": "torso_angle",
+              "operator": "<",
+              "value": 65
+            }
+          ],
+          "message": "Good - Nearly full"
+        },
+        "default": {
+          "message": "Partial - Sit up more"
+        }
+      },
+      "instructions": {
+        "in_position": "UP - Hold at top",
+        "return": "DOWN - Lower with control",
+        "ready": "READY - Sit up"
+      }
+    },
+    "russian_twist": {
+      "name": "Russian Twist",
+      "description": "Tracks Russian twists with torso rotation",
+      "category": "Core",
+      "cooldown_frames": 10,
+      "joints": {
+        "required": [
+          "SHOULDER",
+          "HIP"
+        ],
+        "bilateral": true
+      },
+      "metrics": {
+        "rotation_angle": {
+          "calculation": "shoulder_rotation",
+          "points": [
+            "shoulder",
+            "hip"
+          ]
+        }
+      },
+      "positions": {
+        "rep_position": {
+          "conditions": [
+            {
+              "metric": "rotation_angle",
+              "operator": ">",
+              "value": 30
+            }
+          ]
+        },
+        "starting_position": {
+          "conditions": [
+            {
+              "metric": "rotation_angle",
+              "operator": "<",
+              "value": 10
+            }
+          ]
+        }
+      },
+      "quality_levels": {
+        "excellent": {
+          "conditions": [
+            {
+              "metric": "rotation_angle",
+              "operator": ">",
+              "value": 40
+            }
+          ],
+          "message": "Excellent - Full rotation"
+        },
+        "good": {
+          "conditions": [
+            {
+              "metric": "rotation_angle",
+              "operator": ">",
+              "value": 30
+            }
+          ],
+          "message": "Good - Good twist"
+        },
+        "default": {
+          "message": "Limited - Rotate more"
+        }
+      },
+      "instructions": {
+        "in_position": "TWISTED - Touch side",
+        "return": "CENTER - Return to middle",
+        "ready": "READY - Twist side to side"
+      }
+    },
+    "mountain_climber": {
+      "name": "Mountain Climber",
+      "description": "Tracks mountain climbers with alternating knees",
+      "category": "Core",
+      "cooldown_frames": 10,
+      "joints": {
+        "required": [
+          "SHOULDER",
+          "HIP",
+          "KNEE"
+        ],
+        "bilateral": true
+      },
+      "metrics": {
+        "knee_drive": {
+          "calculation": "vertical_distance_average",
+          "points": [
+            "knee",
+            "hip"
+          ],
+          "absolute": true
+        }
+      },
+      "positions": {
+        "rep_position": {
+          "conditions": [
+            {
+              "metric": "knee_drive",
+              "operator": "<",
+              "value": 0.15
+            }
+          ]
+        },
+        "starting_position": {
+          "conditions": [
+            {
+              "metric": "knee_drive",
+              "operator": ">",
+              "value": 0.3
+            }
+          ]
+        }
+      },
+      "quality_levels": {
+        "excellent": {
+          "conditions": [
+            {
+              "metric": "knee_drive",
+              "operator": "<",
+              "value": 0.1
+            }
+          ],
+          "message": "Excellent - Knee to chest"
+        },
+        "good": {
+          "conditions": [
+            {
+              "metric": "knee_drive",
+              "operator": "<",
+              "value": 0.15
+            }
+          ],
+          "message": "Good - Good drive"
+        },
+        "default": {
+          "message": "Shallow - Drive knees more"
+        }
+      },
+      "instructions": {
+        "in_position": "DRIVE - Knee to chest",
+        "return": "EXTEND - Back to plank",
+        "ready": "READY - Alternate knees"
+      }
+    },
+    "leg_raise": {
+      "name": "Leg Raise",
+      "description": "Tracks leg raises with hip flexion",
+      "category": "Core",
+      "cooldown_frames": 15,
+      "joints": {
+        "required": [
+          "HIP",
+          "KNEE",
+          "ANKLE"
+        ],
+        "bilateral": true
+      },
+      "metrics": {
+        "leg_angle": {
+          "calculation": "bilateral_angle",
+          "points": [
+            "shoulder",
+            "hip",
+            "ankle"
+          ]
+        }
+      },
+      "positions": {
+        "rep_position": {
+          "conditions": [
+            {
+              "metric": "leg_angle",
+              "operator": "<",
+              "value": 110
+            }
+          ]
+        },
+        "starting_position": {
+          "conditions": [
+            {
+              "metric": "leg_angle",
+              "operator": ">",
+              "value": 160
+            }
+          ]
+        }
+      },
+      "quality_levels": {
+        "excellent": {
+          "conditions": [
+            {
+              "metric": "leg_angle",
+              "operator": "<",
+              "value": 100
+            }
+          ],
+          "message": "Excellent - 90 degrees"
+        },
+        "good": {
+          "conditions": [
+            {
+              "metric": "leg_angle",
+              "operator": "<",
+              "value": 115
+            }
+          ],
+          "message": "Good - Nearly vertical"
+        },
+        "default": {
+          "message": "Partial - Raise higher"
+        }
+      },
+      "instructions": {
+        "in_position": "RAISED - Hold at top",
+        "return": "LOWER - Control descent",
+        "ready": "READY - Raise legs"
+      }
+    },
+    "v_up": {
+      "name": "V-Up",
+      "description": "Tracks V-ups with simultaneous limb raise",
+      "category": "Core",
+      "cooldown_frames": 15,
+      "joints": {
+        "required": [
+          "SHOULDER",
+          "HIP",
+          "KNEE",
+          "ANKLE"
+        ],
+        "bilateral": false
+      },
+      "metrics": {
+        "body_fold": {
+          "calculation": "unilateral_angle",
+          "side": "left",
+          "points": [
+            "shoulder",
+            "hip",
+            "ankle"
+          ]
+        }
+      },
+      "positions": {
+        "rep_position": {
+          "conditions": [
+            {
+              "metric": "body_fold",
+              "operator": "<",
+              "value": 90
+            }
+          ]
+        },
+        "starting_position": {
+          "conditions": [
+            {
+              "metric": "body_fold",
+              "operator": ">",
+              "value": 160
+            }
+          ]
+        }
+      },
+      "quality_levels": {
+        "excellent": {
+          "conditions": [
+            {
+              "metric": "body_fold",
+              "operator": "<",
+              "value": 75
+            }
+          ],
+          "message": "Excellent - Full V"
+        },
+        "good": {
+          "conditions": [
+            {
+              "metric": "body_fold",
+              "operator": "<",
+              "value": 95
+            }
+          ],
+          "message": "Good - Nearly full"
+        },
+        "default": {
+          "message": "Partial - Fold more"
+        }
+      },
+      "instructions": {
+        "in_position": "V POSITION - Touch toes",
+        "return": "EXTEND - Lower to ground",
+        "ready": "READY - V-up"
+      }
+    },
+    "burpee": {
+      "name": "Burpee",
+      "description": "Tracks burpees with full body movement",
+      "category": "Full Body",
+      "cooldown_frames": 20,
+      "joints": {
+        "required": [
+          "SHOULDER",
+          "HIP",
+          "KNEE",
+          "ANKLE"
+        ],
+        "bilateral": true
+      },
+      "metrics": {
+        "body_height": {
+          "calculation": "single_joint_y",
+          "point": "hip",
+          "side": "left"
+        },
+        "elbow_angle": {
+          "calculation": "bilateral_angle",
+          "points": [
+            "shoulder",
+            "elbow",
+            "wrist"
+          ]
+        }
+      },
+      "positions": {
+        "rep_position": {
+          "conditions": [
+            {
+              "metric": "body_height",
+              "operator": "<",
+              "value": 0.3
+            }
+          ]
+        },
+        "starting_position": {
+          "conditions": [
+            {
+              "metric": "body_height",
+              "operator": ">",
+              "value": 0.6
+            }
+          ]
+        }
+      },
+      "quality_levels": {
+        "excellent": {
+          "message": "Excellent - Full burpee"
+        },
+        "good": {
+          "message": "Good - Keep going"
+        },
+        "default": {
+          "message": "Maintain form"
+        }
+      },
+      "instructions": {
+        "in_position": "DOWN - Plank position",
+        "return": "JUMP - Stand and jump",
+        "ready": "READY - Begin burpee"
+      }
+    },
+    "jumping_jack": {
+      "name": "Jumping Jack",
+      "description": "Tracks jumping jacks with limb coordination",
+      "category": "Full Body",
+      "cooldown_frames": 10,
+      "joints": {
+        "required": [
+          "SHOULDER",
+          "ELBOW",
+          "HIP",
+          "ANKLE"
+        ],
+        "bilateral": true
+      },
+      "metrics": {
+        "arm_spread": {
+          "calculation": "horizontal_distance_average",
+          "points": [
+            "wrist",
+            "wrist"
+          ]
+        }
+      },
+      "positions": {
+        "rep_position": {
+          "conditions": [
+            {
+              "metric": "arm_spread",
+              "operator": ">",
+              "value": 0.4
+            }
+          ]
+        },
+        "starting_position": {
+          "conditions": [
+            {
+              "metric": "arm_spread",
+              "operator": "<",
+              "value": 0.2
+            }
+          ]
+        }
+      },
+      "quality_levels": {
+        "excellent": {
+          "message": "Excellent - Full range"
+        },
+        "good": {
+          "message": "Good - Keep going"
+        },
+        "default": {
+          "message": "Maintain form"
+        }
+      },
+      "instructions": {
+        "in_position": "SPREAD - Arms and legs out",
+        "return": "CLOSE - Return to start",
+        "ready": "READY - Jumping jacks"
+      }
+    },
+    "high_knees": {
+      "name": "High Knees",
+      "description": "Tracks high knees with alternating leg raises",
+      "category": "Full Body",
+      "cooldown_frames": 10,
+      "joints": {
+        "required": [
+          "HIP",
+          "KNEE"
+        ],
+        "bilateral": true
+      },
+      "metrics": {
+        "knee_height": {
+          "calculation": "vertical_distance_average",
+          "points": [
+            "knee",
+            "hip"
+          ],
+          "absolute": true
+        }
+      },
+      "positions": {
+        "rep_position": {
+          "conditions": [
+            {
+              "metric": "knee_height",
+              "operator": "<",
+              "value": 0.1
+            }
+          ]
+        },
+        "starting_position": {
+          "conditions": [
+            {
+              "metric": "knee_height",
+              "operator": ">",
+              "value": 0.25
+            }
+          ]
+        }
+      },
+      "quality_levels": {
+        "excellent": {
+          "conditions": [
+            {
+              "metric": "knee_height",
+              "operator": "<",
+              "value": 0.05
+            }
+          ],
+          "message": "Excellent - Knees to chest"
+        },
+        "good": {
+          "conditions": [
+            {
+              "metric": "knee_height",
+              "operator": "<",
+              "value": 0.12
+            }
+          ],
+          "message": "Good - High knees"
+        },
+        "default": {
+          "message": "Low - Raise knees higher"
+        }
+      },
+      "instructions": {
+        "in_position": "HIGH - Knee to chest",
+        "return": "ALTERNATE - Switch legs",
+        "ready": "READY - High knees"
+      }
+    }
+  }
+}

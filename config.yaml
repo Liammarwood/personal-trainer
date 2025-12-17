@@ -1,0 +1,24 @@
+# Personal Trainer Application Configuration
+
+# Camera capture mode
+# Options:
+#   - server: Use server-side camera capture (OpenCV) - Best for dedicated devices like RaspberryPi
+#   - browser: Use browser-side camera capture (WebRTC) - Best for mobile/desktop browsers
+camera_mode: browser
+
+# Server settings
+server:
+  host: '0.0.0.0'
+  port: 5000
+  debug: false
+
+# Video processing settings
+video:
+  min_detection_confidence: 0.7
+  min_tracking_confidence: 0.7
+  frame_rate: 30
+
+# Exercise tracking settings
+exercise:
+  cooldown_frames: 20  # Minimum frames between rep counts
+  default_rest_seconds: 60  # Default rest time between sets

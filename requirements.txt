@@ -1,5 +1,11 @@
-opencv-python
-pytesseract
-numpy
-mediapipe
-flaskflask-cors
+# Minimal dependencies for workout scanner only
+# All pose detection and exercise tracking now happens client-side
+
+# Computer Vision for workout plan scanning
+opencv-python>=4.8.0
+pytesseract>=0.3.10
+numpy>=1.24.0
+
+# Web Framework
+flask>=2.3.0
+flask-cors>=4.0.0
