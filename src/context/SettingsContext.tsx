@@ -25,6 +25,7 @@ export const SettingsProvider: React.FC<SettingsProviderProps> = ({ children }) 
       soundEnabled: false,
       showAdvancedMode: false,
       clientSideProcessing: true, // Enable by default for better performance
+      inputMode: 'webcam',
     };
   });
 
@@ -33,7 +34,7 @@ export const SettingsProvider: React.FC<SettingsProviderProps> = ({ children }) 
     localStorage.setItem('workout-settings', JSON.stringify(settings));
   }, [settings]);
 
-  const updateSetting = (key: keyof AppSettings, value: boolean): void => {
+  const updateSetting = (key: keyof AppSettings, value: boolean | string): void => {
     setSettings(prev => ({
       ...prev,
       [key]: value,

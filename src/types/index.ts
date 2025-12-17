@@ -72,6 +72,7 @@ export interface AppSettings {
   soundEnabled: boolean;
   showAdvancedMode: boolean;
   clientSideProcessing: boolean; // New: Enable client-side pose detection
+  inputMode: 'webcam' | 'video';
 }
 
 // Context types
@@ -110,5 +111,5 @@ export interface WorkoutContextType {
 
 export interface SettingsContextType {
   settings: AppSettings;
-  updateSetting: (key: keyof AppSettings, value: boolean) => void;
+  updateSetting: (key: keyof AppSettings, value: boolean | string) => void;
 }
