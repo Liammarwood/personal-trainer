@@ -1,7 +1,7 @@
 {
-  "name": "Personal Trainer - AI Workout Tracking",
+  "name": "Personal Trainer - Workout Tracking",
   "short_name": "PT Tracker",
-  "description": "Track your workouts with AI-powered form analysis, rep counting, and real-time feedback. Works offline!",
+  "description": "Track your workouts with automated form analysis, rep counting, and real-time feedback. Works offline!",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
@@ -19,12 +19,22 @@
     },
     {
       "src": "/icon.svg",
-      "sizes": "512x512",
+      "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "maskable"
+    },
+    {
+      "src": "/black-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "monochrome"
     }
   ],
-  "categories": ["health", "fitness", "lifestyle"],
+  "categories": [
+    "health",
+    "fitness",
+    "lifestyle"
+  ],
   "shortcuts": [
     {
       "name": "Start Workout",
@@ -35,7 +45,8 @@
         {
           "src": "/icon.svg",
           "sizes": "any",
-          "type": "image/svg+xml"
+          "type": "image/svg+xml",
+          "purpose": "any"
         }
       ]
     }

@@ -59,7 +59,7 @@ ${infoText}
           Build time: {BUILD_TIME || 'unknown'}
         </Typography>
         <Typography variant="caption" color="text.secondary" sx={{ mt: 1, display: 'block' }}>
-          AI-powered workout tracking using MediaPipe for real-time pose detection and form analysis. For debugging provide the version and commit when filing issues.
+          Workout tracking using MediaPipe for real-time pose detection and form analysis. For debugging provide the version and commit when filing issues.
         </Typography>
       </DialogContent>
       <DialogActions>

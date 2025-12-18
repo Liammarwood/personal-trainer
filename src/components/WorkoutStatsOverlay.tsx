@@ -41,14 +41,13 @@ const WorkoutStatsOverlay: React.FC<WorkoutStatsOverlayProps> = ({ stats, visibl
   const hasExpectedPlan = Boolean(expectedPlan.sets && expectedPlan.reps_per_set);
   
   // Calculate progress
-  // stats.sets = completed sets (increments after finishing a set)
-  // stats.reps = reps in the current active set
-  // So total completed reps = (completed sets * reps per set) + reps in current set
+  // stats.sets = completed sets
+  // stats.reps = reps in current set (resets to 0 after rest)
+  // Total reps = (completed sets * reps per set) + current set reps
   const totalExpectedReps = hasExpectedPlan 
     ? (expectedPlan.sets || 0) * (expectedPlan.reps_per_set || 0)
     : 0;
-  const completedSets = Math.max(0, (stats.sets || 0) - (stats.reps > 0 ? 1 : 0)); // Subtract 1 if currently in a set
-  const totalCompletedReps = completedSets * (expectedPlan.reps_per_set || 0) + (stats.reps || 0);
+  const totalCompletedReps = (stats.sets || 0) * (expectedPlan.reps_per_set || 0) + (stats.reps || 0);
   const progress = totalExpectedReps > 0 
     ? (totalCompletedReps / totalExpectedReps) * 100 
     : 0;

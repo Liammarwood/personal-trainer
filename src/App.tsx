@@ -72,7 +72,7 @@ function AppContent(): JSX.Element {
               Personal Trainer
             </Typography>
             <Typography variant="caption" sx={{ opacity: 0.9, display: { xs: 'none', sm: 'block' } }}>
-              AI-Powered Workout Tracking
+              Workout Tracking
             </Typography>
           </Box>
           <Typography variant="caption" sx={{ mr: 1, display: { xs: 'none', sm: 'block' } }}>
