@@ -122,7 +122,7 @@ function AppContent(): JSX.Element {
           <FitnessCenterIcon sx={{ mr: 2 }} />
           <Box sx={{ flexGrow: 1 }}>
             <Typography variant="h5" component="h1" sx={{ fontWeight: 'bold', fontSize: { xs: '1.2rem', sm: '1.5rem' } }}>
-              Personal Trainer
+              One Personal Trainer
             </Typography>
             <Typography variant="caption" sx={{ opacity: 0.9, display: { xs: 'none', sm: 'block' } }}>
               Workout Tracking
