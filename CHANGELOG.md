@@ -1,3 +1,11 @@
+# [1.3.0](https://github.com/Liammarwood/personal-trainer/compare/v1.2.0...v1.3.0) (2025-12-18)
+
+
+### Features
+
+* Fixing Advanced View and Cleanup UI ([c400c67](https://github.com/Liammarwood/personal-trainer/commit/c400c67fc7d6bb1da2aa5ed6b23869365b413361))
+* Mobile friendly UI ([4eed3f5](https://github.com/Liammarwood/personal-trainer/commit/4eed3f5d8fe7e9484ab035d1cc58534658ac4d63))
+
 # [1.2.0](https://github.com/Liammarwood/personal-trainer/compare/v1.1.0...v1.2.0) (2025-12-18)
 
 
