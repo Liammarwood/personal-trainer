@@ -19,6 +19,7 @@ interface ClientSideVideoFeedProps {
   videoFile?: File | null;
   inRestPeriod?: boolean;
   workoutComplete?: boolean;
+  showAdvancedMode?: boolean;
 }
 
 const ClientSideVideoFeed: React.FC<ClientSideVideoFeedProps> = ({
@@ -29,7 +30,8 @@ const ClientSideVideoFeed: React.FC<ClientSideVideoFeedProps> = ({
   isTracking,
   videoFile = null,
   inRestPeriod = false,
-  workoutComplete = false
+  workoutComplete = false,
+  showAdvancedMode = false
 }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -50,6 +52,7 @@ const ClientSideVideoFeed: React.FC<ClientSideVideoFeedProps> = ({
   // Rep counting refs (to avoid stale state in callbacks)
   const prevAtRepPositionRef = useRef(false);
   const calculatorRef = useRef<ExerciseMetricsCalculator | null>(null);
+  const exerciseConfigRef = useRef<ExerciseConfig | null>(null);
 
   useEffect(() => {
     let mounted = true;
@@ -77,6 +80,7 @@ const ClientSideVideoFeed: React.FC<ClientSideVideoFeedProps> = ({
         // Create metrics calculator
         const calc = new ExerciseMetricsCalculator(exerciseConfig);
         calculatorRef.current = calc;
+        exerciseConfigRef.current = exerciseConfig;
         setCalculator(calc);
 
         // Create pose detector
@@ -84,7 +88,8 @@ const ClientSideVideoFeed: React.FC<ClientSideVideoFeedProps> = ({
           modelComplexity: 1,
           smoothLandmarks: true,
           minDetectionConfidence: 0.5,
-          minTrackingConfidence: 0.5
+          minTrackingConfidence: 0.5,
+          showAdvancedMode
         });
 
         if (!mounted) return;
@@ -111,14 +116,17 @@ const ClientSideVideoFeed: React.FC<ClientSideVideoFeedProps> = ({
               // Calculate metrics from landmarks
               const metrics = calc.calculateMetrics(results.landmarks);
               setCurrentMetrics(metrics);
-              onMetricsUpdate(metrics);
-
+              
               // Check positions for rep counting
               const isAtStart = calc.isAtStartingPosition(metrics);
               const isAtRep = calc.isAtRepPosition(metrics);
 
               setAtStartingPosition(isAtStart);
               setAtRepPosition(isAtRep);
+              
+              // Determine and pass current instruction
+              const currentInstruction = getCurrentInstruction(isAtStart, isAtRep);
+              onMetricsUpdate({ ...metrics, current_instruction: currentInstruction });
 
               // Detect rep completion (using ref to avoid stale state)
               const wasAtRep = prevAtRepPositionRef.current;
@@ -171,14 +179,17 @@ const ClientSideVideoFeed: React.FC<ClientSideVideoFeedProps> = ({
               // Calculate metrics from landmarks
               const metrics = calc.calculateMetrics(results.landmarks);
               setCurrentMetrics(metrics);
-              onMetricsUpdate(metrics);
-
+              
               // Check positions for rep counting
               const isAtStart = calc.isAtStartingPosition(metrics);
               const isAtRep = calc.isAtRepPosition(metrics);
 
               setAtStartingPosition(isAtStart);
               setAtRepPosition(isAtRep);
+              
+              // Determine and pass current instruction
+              const currentInstruction = getCurrentInstruction(isAtStart, isAtRep);
+              onMetricsUpdate({ ...metrics, current_instruction: currentInstruction });
 
               // Detect rep completion (using ref to avoid stale state)
               const wasAtRep = prevAtRepPositionRef.current;
@@ -233,6 +244,20 @@ const ClientSideVideoFeed: React.FC<ClientSideVideoFeedProps> = ({
       }
     };
   }, [exerciseId, isTracking, videoFile]);
+
+  const getCurrentInstruction = (isAtStart: boolean, isAtRep: boolean): string => {
+    const config = exerciseConfigRef.current;
+    if (!config || !config.instructions) return '';
+    
+    // Priority: rep position > starting position > return
+    if (isAtRep) {
+      return config.instructions.in_position || '';
+    } else if (isAtStart) {
+      return config.instructions.ready || '';
+    } else {
+      return config.instructions.return || '';
+    }
+  };
 
   const handleRepComplete = async (metrics: any) => {
     const calc = calculatorRef.current;
@@ -340,7 +365,7 @@ const ClientSideVideoFeed: React.FC<ClientSideVideoFeedProps> = ({
       )}
 
       {/* FPS Counter (dev mode) */}
-      {process.env.NODE_ENV === 'development' && !loading && (
+      {showAdvancedMode && !loading && (
         <Box
           sx={{
             position: 'absolute',
@@ -359,7 +384,7 @@ const ClientSideVideoFeed: React.FC<ClientSideVideoFeedProps> = ({
       )}
 
       {/* Position indicators (dev mode) */}
-      {process.env.NODE_ENV === 'development' && !loading && (
+      {showAdvancedMode && !loading && (
         <Box
           sx={{
             position: 'absolute',

@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useWorkout } from '../context/WorkoutContext';
 import { useSettings } from '../context/SettingsContext';
 import { Paper, Box, Typography, IconButton, Tooltip } from '@mui/material';
@@ -18,6 +18,16 @@ const VideoFeed: React.FC<VideoFeedProps> = ({ onToggleVideo }) => {
   const { settings } = useSettings();
   const [isFullscreen, setIsFullscreen] = useState<boolean>(false);
   const containerRef = useRef<HTMLDivElement>(null);
+
+  // Listen for fullscreen changes (e.g., user presses ESC)
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      setIsFullscreen(!!document.fullscreenElement);
+    };
+
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    return () => document.removeEventListener('fullscreenchange', handleFullscreenChange);
+  }, []);
 
   const handleFullscreenToggle = async () => {
     if (!containerRef.current) return;
@@ -129,6 +139,7 @@ const VideoFeed: React.FC<VideoFeedProps> = ({ onToggleVideo }) => {
           videoFile={selectedVideoFile}
           inRestPeriod={stats.in_rest_period || false}
           workoutComplete={stats.workout_complete || false}
+          showAdvancedMode={settings.showAdvancedMode}
         />
       )}
     </Paper>

@@ -1,8 +1,9 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { renderHook, act, waitFor } from '@testing-library/react';
-import { WorkoutProvider, useWorkout } from '../WorkoutContext';
+import { useWorkout } from '../WorkoutContext';
 import type { ReactNode } from 'react';
 import type { UploadResults } from '../../types';
+import { MockProviders } from '../../test/MockProviders';
 
 // Mock the API module
 vi.mock('../../services/api', () => ({
@@ -40,7 +41,7 @@ vi.mock('../../services/api', () => ({
 }));
 
 const wrapper = ({ children }: { children: ReactNode }) => (
-  <WorkoutProvider>{children}</WorkoutProvider>
+  <MockProviders>{children}</MockProviders>
 );
 
 describe('WorkoutContext', () => {
@@ -464,11 +465,12 @@ describe('WorkoutContext', () => {
         expect(result.current.exercises.length).toBeGreaterThan(0);
       });
 
-      // Start an exercise with expected plan (2 sets of 2 reps)
+      // Start an exercise with expected plan (3 sets of 2 reps)
       await act(async () => {
         await result.current.startExercise('squat', {
           sets: 3,
-          reps_per_set: 2
+          reps_per_set: 2,
+          rest_seconds: 0 // No rest period for faster test
         });
       });
 

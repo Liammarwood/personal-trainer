@@ -41,8 +41,8 @@ const WorkoutStatsOverlay: React.FC<WorkoutStatsOverlayProps> = ({ stats, visibl
   const hasExpectedPlan = Boolean(expectedPlan.sets && expectedPlan.reps_per_set);
   
   // Calculate progress
-  // stats.sets = completed sets
-  // stats.reps = reps in current set (resets to 0 after rest)
+  // stats.sets = completed sets (increments immediately when set completes)
+  // stats.reps = reps in current/next set (resets to 0 when set completes)
   // Total reps = (completed sets * reps per set) + current set reps
   const totalExpectedReps = hasExpectedPlan 
     ? (expectedPlan.sets || 0) * (expectedPlan.reps_per_set || 0)
@@ -148,7 +148,7 @@ const WorkoutStatsOverlay: React.FC<WorkoutStatsOverlayProps> = ({ stats, visibl
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
                 <RepeatIcon sx={{ fontSize: 16, color: 'rgba(255,255,255,0.7)' }} />
                 <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.7)' }}>
-                  Set {stats.sets || 0}
+                  Set {stats.sets + 1 || 1}
                   {hasExpectedPlan && ` / ${expectedPlan.sets}`}
                 </Typography>
               </Box>
@@ -178,7 +178,7 @@ const WorkoutStatsOverlay: React.FC<WorkoutStatsOverlayProps> = ({ stats, visibl
             </Box>
 
             {/* Target Weight (if available) */}
-            {expectedPlan.target_weight && (
+            {expectedPlan.target_weight ? (
               <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.7)' }}>
                   Weight
@@ -187,7 +187,7 @@ const WorkoutStatsOverlay: React.FC<WorkoutStatsOverlayProps> = ({ stats, visibl
                   {expectedPlan.target_weight} kg
                 </Typography>
               </Box>
-            )}
+            ) : null}
 
             {/* Progress Bar */}
             {hasExpectedPlan && (

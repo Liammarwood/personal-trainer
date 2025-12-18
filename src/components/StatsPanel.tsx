@@ -164,14 +164,14 @@ const StatsPanel: React.FC<StatsPanelProps> = ({ onShowVideo }) => {
                 secondary={stats.expected_plan.reps_per_set}
               />
             </ListItem>
-            {stats.expected_plan && stats.expected_plan.target_weight && stats.expected_plan.target_weight > 0 && (
+            {stats.expected_plan && stats.expected_plan.target_weight && stats.expected_plan.target_weight > 0 ? (
               <ListItem>
                 <ListItemText
                   primary="Target Weight"
                   secondary={`${stats.expected_plan.target_weight} kg`}
                 />
               </ListItem>
-            )}
+            ) : null}
             <ListItem>
               <ListItemText
                 primary="Rest Period"

@@ -96,7 +96,10 @@ function AppContent(): JSX.Element {
         <Grid container spacing={{ xs: 1, sm: 2 }}>
           {/* Left column - Video/Stats */}
           <Grid size={{ xs: 12, md: 6 }}>
-            {hideVideoFeed ? <StatsPanel onShowVideo={() => setHideVideoFeed(false)} /> : <VideoFeed onToggleVideo={() => setHideVideoFeed(!hideVideoFeed)} />}
+            <Box sx={{ display: hideVideoFeed ? 'none' : 'block' }}>
+              <VideoFeed onToggleVideo={() => setHideVideoFeed(!hideVideoFeed)} />
+            </Box>
+            {hideVideoFeed && <StatsPanel onShowVideo={() => setHideVideoFeed(false)} />}
           </Grid>
 
           {/* Right column - Today's Workout and Upload */}
