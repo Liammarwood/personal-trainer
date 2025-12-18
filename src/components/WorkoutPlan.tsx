@@ -155,7 +155,7 @@ const WorkoutPlan: React.FC = () => {
                   type="number"
                   value={sets}
                   onChange={(e: ChangeEvent<HTMLInputElement>) => setSets(Number(e.target.value))}
-                  inputProps={{ min: 1 }}
+                  slotProps={{ htmlInput: { min: 1 } }}
                   fullWidth
                   size="small"
                 />
@@ -166,7 +166,7 @@ const WorkoutPlan: React.FC = () => {
                   type="number"
                   value={reps}
                   onChange={(e: ChangeEvent<HTMLInputElement>) => setReps(Number(e.target.value))}
-                  inputProps={{ min: 1 }}
+                  slotProps={{ htmlInput: { min: 1 } }}
                   fullWidth
                   size="small"
                 />
@@ -177,7 +177,7 @@ const WorkoutPlan: React.FC = () => {
                   type="number"
                   value={weight}
                   onChange={(e: ChangeEvent<HTMLInputElement>) => setWeight(Number(e.target.value))}
-                  inputProps={{ min: 0, step: 2.5 }}
+                  slotProps={{ htmlInput: { min: 0, step: 2.5 } }}
                   fullWidth
                   size="small"
                 />
@@ -188,7 +188,7 @@ const WorkoutPlan: React.FC = () => {
                   type="number"
                   value={rest}
                   onChange={(e: ChangeEvent<HTMLInputElement>) => setRest(Number(e.target.value))}
-                  inputProps={{ min: 0, step: 5 }}
+                  slotProps={{ htmlInput: { min: 0, step: 5 } }}
                   fullWidth
                   size="small"
                 />
@@ -222,7 +222,7 @@ const WorkoutPlan: React.FC = () => {
                           {item.exercise.name}
                         </Typography>
                         <Typography variant="caption" color="text.secondary">
-                          {item.sets} sets × {item.reps} reps
+                          {item.sets} sets x {item.reps} reps
                           {item.weight > 0 && ` @ ${item.weight}kg`}
                         </Typography>
                       </Box>
@@ -449,11 +449,9 @@ const WorkoutPlan: React.FC = () => {
                       <Typography variant="body2" color="text.secondary">
                         <strong>{exercise.reps_per_set}</strong> reps
                       </Typography>
-                      {exercise.weight && exercise.weight > 0 && (
-                        <Typography variant="body2" color="text.secondary">
-                          <strong>{exercise.weight}</strong> kg
-                        </Typography>
-                      )}
+                      <Typography variant="body2" color="text.secondary">
+                        <strong>{exercise.weight}</strong> kg
+                      </Typography>
                     </Box>
 
                     {isTrackable && exercise.mapped_exercise && (
@@ -535,7 +533,7 @@ const WorkoutPlan: React.FC = () => {
                   type="number"
                   value={sets}
                   onChange={(e: ChangeEvent<HTMLInputElement>) => setSets(Number(e.target.value))}
-                  inputProps={{ min: 1 }}
+                  slotProps={{ htmlInput: { min: 1 } }}
                   fullWidth
                   size="small"
                 />
@@ -546,7 +544,7 @@ const WorkoutPlan: React.FC = () => {
                   type="number"
                   value={reps}
                   onChange={(e: ChangeEvent<HTMLInputElement>) => setReps(Number(e.target.value))}
-                  inputProps={{ min: 1 }}
+                  slotProps={{ htmlInput: { min: 1 } }}
                   fullWidth
                   size="small"
                 />
@@ -557,7 +555,7 @@ const WorkoutPlan: React.FC = () => {
                   type="number"
                   value={weight}
                   onChange={(e: ChangeEvent<HTMLInputElement>) => setWeight(Number(e.target.value))}
-                  inputProps={{ min: 0, step: 2.5 }}
+                  slotProps={{ htmlInput: { min: 0, step: 2.5 } }}
                   fullWidth
                   size="small"
                 />
@@ -568,7 +566,7 @@ const WorkoutPlan: React.FC = () => {
                   type="number"
                   value={rest}
                   onChange={(e: ChangeEvent<HTMLInputElement>) => setRest(Number(e.target.value))}
-                  inputProps={{ min: 0, step: 5 }}
+                  slotProps={{ htmlInput: { min: 0, step: 5 } }}
                   fullWidth
                   size="small"
                 />

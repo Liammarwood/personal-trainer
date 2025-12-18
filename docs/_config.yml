@@ -1,0 +1,80 @@
+# GitHub Pages Configuration
+
+# Theme
+theme: jekyll-theme-cayman
+title: Personal Trainer - Workout Tracking
+description: Real-time exercise tracking and form analysis using computer vision
+baseurl: "/personal-trainer"
+url: "https://liammarwood.github.io"
+
+# Build settings
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+  
+# Collections
+collections:
+  docs:
+    output: true
+    permalink: /:collection/:name
+
+# Navigation
+nav_links:
+  - title: Home
+    url: /
+  - title: Getting Started
+    url: /getting-started
+  - title: User Guide
+    url: /user-guide
+  - title: Features
+    url: /features
+  - title: FAQ
+    url: /faq
+  - title: Troubleshooting
+    url: /troubleshooting
+
+# Plugins
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+# Exclude from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+  - .sass-cache
+  - .jekyll-cache
+  - README.md
+  - TEXT_TO_SPEECH.md
+
+# Include files
+include:
+  - _redirects
+
+# Social links
+github_username: Liammarwood
+repository: Liammarwood/personal-trainer
+
+# Google Analytics (optional - add your tracking ID)
+# google_analytics: UA-XXXXXXXXX-X
+
+# SEO
+twitter:
+  username: # Add if applicable
+  card: summary_large_image
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "default"
+  - scope:
+      path: "docs"
+    values:
+      layout: "default"

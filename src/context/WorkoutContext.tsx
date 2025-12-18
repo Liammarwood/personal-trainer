@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import api from '../services/api';
 import type { Exercise, WorkoutStats, WorkoutOptions, UploadResults } from '../types';
+import { useTextToSpeech } from '../hooks/useTextToSpeech';
 
 interface WorkoutContextValue {
   exercises: Exercise[];
@@ -44,6 +45,7 @@ interface WorkoutProviderProps {
 }
 
 export const WorkoutProvider: React.FC<WorkoutProviderProps> = ({ children }) => {
+  const { speak } = useTextToSpeech();
   const [exercises, setExercises] = useState<Exercise[]>([]);
   const [currentExercise, setCurrentExercise] = useState<string | null>(null);
   const [currentExerciseIndex, setCurrentExerciseIndex] = useState<number | null>(null);
@@ -84,23 +86,25 @@ export const WorkoutProvider: React.FC<WorkoutProviderProps> = ({ children }) =>
     };
   }, [isTracking, startTime]);
 
-  // Rest timer effect
+  // Rest timer - counts down and resets for next set when complete
   useEffect(() => {
     if (!stats.in_rest_period) return;
 
-    console.log('[WorkoutContext] Starting rest timer with', stats.rest_remaining, 'seconds');
+    console.log('[WorkoutContext] Rest period started:', stats.rest_remaining, 'seconds');
     
     const timer = setInterval(() => {
       setStats(prev => {
-        if (!prev.in_rest_period) return prev; // Safety check
+        if (!prev.in_rest_period) return prev;
         
-        const newRemaining = (prev.rest_remaining || 0) - 1;
+        const remaining = (prev.rest_remaining || 1) - 1;
         
-        if (newRemaining <= 0) {
-          // Rest period complete - just clear rest state, don't increment sets
-          console.log('[WorkoutContext] Rest complete, ready for next set');
+        if (remaining <= 0) {
+          // Rest complete - increment sets and ready for next set
+          console.log('[WorkoutContext] Rest complete - moving to next set');
           return {
             ...prev,
+            sets: prev.sets + 1, // Increment sets now
+            reps: 0, // Reset reps for next set
             in_rest_period: false,
             rest_remaining: 0
           };
@@ -108,15 +112,12 @@ export const WorkoutProvider: React.FC<WorkoutProviderProps> = ({ children }) =>
          
         return {
           ...prev,
-          rest_remaining: newRemaining
+          rest_remaining: remaining
         };
       });
     }, 1000);
 
-    return () => {
-      console.log('[WorkoutContext] Clearing rest timer');
-      clearInterval(timer);
-    };
+    return () => clearInterval(timer);
   }, [stats.in_rest_period]);
 
   const loadExercises = async (): Promise<void> => {
@@ -251,52 +252,75 @@ export const WorkoutProvider: React.FC<WorkoutProviderProps> = ({ children }) =>
   };
 
   const handleRepComplete = (repData: any): void => {
-    console.log('[WorkoutContext] handleRepComplete called with:', repData);
-    
     setStats(prev => {
+      // GUARD: Don't process reps during rest period
+      if (prev.in_rest_period) {
+        console.log('[WorkoutContext] Rep ignored - in rest period');
+        return prev;
+      }
+
+      // GUARD: Don't process reps if workout is complete
+      if (prev.workout_complete) {
+        console.log('[WorkoutContext] Rep ignored - workout complete');
+        return prev;
+      }
+
+      // Get workout plan configuration
+      const plan = prev.expected_plan || {};
+      const targetRepsPerSet = plan.reps_per_set || 0;
+      const targetSets = plan.sets || 0;
+      const restSeconds = plan.rest_seconds || 60;
+      
+      // Increment rep count
       const newReps = prev.reps + 1;
-      const expectedPlan = prev.expected_plan || {};
-      const repsPerSet = expectedPlan.reps_per_set || 0;
-      const totalSets = expectedPlan.sets || 0;
-      const restSeconds = expectedPlan.rest_seconds || 60;
+      console.log(`[WorkoutContext] Rep ${newReps}/${targetRepsPerSet} (Set ${prev.sets + 1}/${targetSets})`);
       
-      console.log('[WorkoutContext] Incrementing reps:', prev.reps, '->', newReps);
+      // Announce rep
+      speak(`${newReps}`, { rate: 1.2 });
       
-      // Check if set is complete
-      let newSets = prev.sets;
-      let shouldStartRest = false;
-      let repsForNextSet = newReps;
+      // Check if this set is complete
+      const setComplete = targetRepsPerSet > 0 && newReps >= targetRepsPerSet;
       
-      if (repsPerSet > 0 && newReps >= repsPerSet) {
-        // Set completed!
-        newSets = prev.sets + 1;
-        repsForNextSet = 0; // Reset reps for next set
-        shouldStartRest = newSets < totalSets; // Only rest if more sets remaining
-        console.log('[WorkoutContext] Set complete! Sets:', prev.sets, '->', newSets, 'Starting rest:', shouldStartRest);
+      if (!setComplete) {
+        // Still in the middle of a set
+        return {
+          ...prev,
+          reps: newReps,
+          rep_quality: repData.quality
+        };
       }
       
-      // Check if workout is complete
-      const workoutComplete = totalSets > 0 && newSets >= totalSets;
+      // Set is complete - check if workout is complete
+      const setsCompleted = prev.sets + 1;
+      const workoutComplete = targetSets > 0 && setsCompleted >= targetSets;
       
-      // Start rest period if set completed and more sets remain
-      if (shouldStartRest && !workoutComplete) {
-        console.log('[WorkoutContext] Starting rest period:', restSeconds, 'seconds');
-        // TODO: Implement rest timer logic here
-        // For now, just mark that we're in rest
+      if (workoutComplete) {
+        // Workout finished!
+        console.log('[WorkoutContext] Workout complete!');
+        speak('Well done! Workout complete!', { rate: 0.9, pitch: 1.1 });
+        return {
+          ...prev,
+          reps: newReps,
+          // Don't increment sets - keeps total reps calculation correct
+          // Total reps = sets * reps_per_set + reps
+          workout_complete: true,
+          rep_quality: repData.quality
+        };
       }
+      
+      // Set complete but more sets remain - start rest
+      console.log(`[WorkoutContext] Set ${setsCompleted} complete - starting ${restSeconds}s rest`);
+      speak(`Set ${setsCompleted} complete. Take a rest.`, { rate: 0.95 });
       
       return {
         ...prev,
-        reps: repsForNextSet,
-        sets: newSets,
-        rep_quality: repData.quality,
-        workout_complete: workoutComplete,
-        in_rest_period: shouldStartRest && !workoutComplete,
-        rest_remaining: shouldStartRest && !workoutComplete ? restSeconds : 0
+        reps: newReps,
+        // Don't increment sets yet - will happen when rest completes
+        in_rest_period: true,
+        rest_remaining: restSeconds,
+        rep_quality: repData.quality
       };
     });
-    
-    console.log('[WorkoutContext] Rep completed:', repData);
   };
 
   const uploadVideo = async (file: File): Promise<any> => {

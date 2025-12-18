@@ -18,6 +18,7 @@ interface ClientSideVideoFeedProps {
   isTracking: boolean;
   videoFile?: File | null;
   inRestPeriod?: boolean;
+  workoutComplete?: boolean;
 }
 
 const ClientSideVideoFeed: React.FC<ClientSideVideoFeedProps> = ({
@@ -27,7 +28,8 @@ const ClientSideVideoFeed: React.FC<ClientSideVideoFeedProps> = ({
   sessionId,
   isTracking,
   videoFile = null,
-  inRestPeriod = false
+  inRestPeriod = false,
+  workoutComplete = false
 }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -121,8 +123,8 @@ const ClientSideVideoFeed: React.FC<ClientSideVideoFeedProps> = ({
               // Detect rep completion (using ref to avoid stale state)
               const wasAtRep = prevAtRepPositionRef.current;
               
-              // Count rep when leaving rep position (but not during rest period)
-              if (wasAtRep && !isAtRep && !inRestPeriod) {
+              // Count rep when leaving rep position (but not during rest period or if workout complete)
+              if (wasAtRep && !isAtRep && !inRestPeriod && !workoutComplete) {
                 console.log('[ClientSideVideoFeed] [VIDEO] Rep completed! Left rep position');
                 handleRepComplete(metrics);
               }
@@ -130,6 +132,11 @@ const ClientSideVideoFeed: React.FC<ClientSideVideoFeedProps> = ({
               // Log if rep was skipped due to rest period
               if (wasAtRep && !isAtRep && inRestPeriod) {
                 console.log('[ClientSideVideoFeed] [VIDEO] Rep detected but skipped (in rest period)');
+              }
+              
+              // Log if rep was skipped due to workout completion
+              if (wasAtRep && !isAtRep && workoutComplete) {
+                console.log('[ClientSideVideoFeed] [VIDEO] Rep detected but skipped (workout complete)');
               }
               
               // Log position changes for debugging with metrics
@@ -176,10 +183,20 @@ const ClientSideVideoFeed: React.FC<ClientSideVideoFeedProps> = ({
               // Detect rep completion (using ref to avoid stale state)
               const wasAtRep = prevAtRepPositionRef.current;
               
-              // Count rep when leaving rep position (relaxed from requiring start position)
-              if (wasAtRep && !isAtRep) {
+              // Count rep when leaving rep position (but not during rest period or if workout complete)
+              if (wasAtRep && !isAtRep && !inRestPeriod && !workoutComplete) {
                 console.log('[ClientSideVideoFeed] [WEBCAM] Rep completed! Left rep position');
                 handleRepComplete(metrics);
+              }
+              
+              // Log if rep was skipped due to rest period
+              if (wasAtRep && !isAtRep && inRestPeriod) {
+                console.log('[ClientSideVideoFeed] [WEBCAM] Rep detected but skipped (in rest period)');
+              }
+              
+              // Log if rep was skipped due to workout completion
+              if (wasAtRep && !isAtRep && workoutComplete) {
+                console.log('[ClientSideVideoFeed] [WEBCAM] Rep detected but skipped (workout complete)');
               }
               
               // Log position changes for debugging

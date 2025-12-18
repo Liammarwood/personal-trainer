@@ -128,6 +128,7 @@ const VideoFeed: React.FC<VideoFeedProps> = ({ onToggleVideo }) => {
           isTracking={isTracking}
           videoFile={selectedVideoFile}
           inRestPeriod={stats.in_rest_period || false}
+          workoutComplete={stats.workout_complete || false}
         />
       )}
     </Paper>
