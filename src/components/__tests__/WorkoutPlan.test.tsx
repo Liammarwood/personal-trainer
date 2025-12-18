@@ -47,7 +47,6 @@ describe('WorkoutPlan Component - Core Tests', () => {
         showRepQuality: false,
         soundEnabled: false,
         showAdvancedMode: false,
-        clientSideProcessing: true,
       },
       updateSetting: vi.fn(),
     });

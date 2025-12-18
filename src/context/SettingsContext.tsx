@@ -24,7 +24,6 @@ export const SettingsProvider: React.FC<SettingsProviderProps> = ({ children }) 
       showRepQuality: false,
       soundEnabled: false,
       showAdvancedMode: false,
-      clientSideProcessing: true, // Enable by default for better performance
       inputMode: 'webcam',
     };
   });

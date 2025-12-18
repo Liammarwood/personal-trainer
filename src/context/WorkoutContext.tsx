@@ -73,7 +73,7 @@ export const WorkoutProvider: React.FC<WorkoutProviderProps> = ({ children }) =>
   // Update duration timer
   useEffect(() => {
     let interval: NodeJS.Timeout;
-    if (isTracking && startTime > 0) {
+    if (isTracking && startTime > 0 && !stats.workout_complete) {
       interval = setInterval(() => {
         setStats(prev => ({
           ...prev,
@@ -84,7 +84,7 @@ export const WorkoutProvider: React.FC<WorkoutProviderProps> = ({ children }) =>
     return () => {
       if (interval) clearInterval(interval);
     };
-  }, [isTracking, startTime]);
+  }, [isTracking, startTime, stats.workout_complete]);
 
   // Rest timer - counts down and ends rest period when complete
   useEffect(() => {
@@ -117,18 +117,6 @@ export const WorkoutProvider: React.FC<WorkoutProviderProps> = ({ children }) =>
 
     return () => clearInterval(timer);
   }, [stats.in_rest_period]);
-
-  // Text-to-speech for exercise position instructions
-  useEffect(() => {
-    if (!isTracking || !stats.current_instruction) return;
-    
-    // Don't announce instructions during rest or when workout is complete
-    if (stats.in_rest_period || stats.workout_complete) return;
-    
-    // Speak the instruction
-    console.log('[WorkoutContext] Speaking instruction:', stats.current_instruction);
-    speak(stats.current_instruction, { rate: 0.9, pitch: 1.0 });
-  }, [stats.current_instruction, isTracking]);
 
   const loadExercises = async (): Promise<void> => {
     try {
@@ -258,7 +246,10 @@ export const WorkoutProvider: React.FC<WorkoutProviderProps> = ({ children }) =>
     setStats(prev => ({
       ...prev,
       joint_angles: metrics,
-      current_instruction: metrics.current_instruction
+      // Hide instruction during rest, otherwise show current instruction
+      current_instruction: prev.in_rest_period ? undefined : metrics.current_instruction,
+      // Clear quality feedback when back at starting position
+      rep_quality: metrics.clear_quality ? undefined : prev.rep_quality
     }));
   };
 

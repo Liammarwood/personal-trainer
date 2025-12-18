@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Box, Typography, LinearProgress, Chip, Paper, Grid } from '@mui/material';
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 import TimerIcon from '@mui/icons-material/Timer';
@@ -275,4 +275,4 @@ const WorkoutStatsOverlay: React.FC<WorkoutStatsOverlayProps> = ({ stats, visibl
   );
 };
 
-export default WorkoutStatsOverlay;
+export default memo(WorkoutStatsOverlay);

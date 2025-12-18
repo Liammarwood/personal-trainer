@@ -53,6 +53,7 @@ const ClientSideVideoFeed: React.FC<ClientSideVideoFeedProps> = ({
   const prevAtRepPositionRef = useRef(false);
   const calculatorRef = useRef<ExerciseMetricsCalculator | null>(null);
   const exerciseConfigRef = useRef<ExerciseConfig | null>(null);
+  const repPositionMetricsRef = useRef<any>(null);
 
   useEffect(() => {
     let mounted = true;
@@ -124,9 +125,16 @@ const ClientSideVideoFeed: React.FC<ClientSideVideoFeedProps> = ({
               setAtStartingPosition(isAtStart);
               setAtRepPosition(isAtRep);
               
+              // Store metrics while at rep position for quality assessment
+              if (isAtRep) {
+                repPositionMetricsRef.current = metrics;
+              }
+              
               // Determine and pass current instruction
               const currentInstruction = getCurrentInstruction(isAtStart, isAtRep);
-              onMetricsUpdate({ ...metrics, current_instruction: currentInstruction });
+              // Clear quality feedback when back at starting position (ready for next rep)
+              const clearQuality = isAtStart && !isAtRep;
+              onMetricsUpdate({ ...metrics, current_instruction: currentInstruction, clear_quality: clearQuality });
 
               // Detect rep completion (using ref to avoid stale state)
               const wasAtRep = prevAtRepPositionRef.current;
@@ -134,7 +142,8 @@ const ClientSideVideoFeed: React.FC<ClientSideVideoFeedProps> = ({
               // Count rep when leaving rep position (but not during rest period or if workout complete)
               if (wasAtRep && !isAtRep && !inRestPeriod && !workoutComplete) {
                 console.log('[ClientSideVideoFeed] [VIDEO] Rep completed! Left rep position');
-                handleRepComplete(metrics);
+                // Use stored metrics from when we were at rep position
+                handleRepComplete(repPositionMetricsRef.current || metrics);
               }
               
               // Log if rep was skipped due to rest period
@@ -187,9 +196,16 @@ const ClientSideVideoFeed: React.FC<ClientSideVideoFeedProps> = ({
               setAtStartingPosition(isAtStart);
               setAtRepPosition(isAtRep);
               
+              // Store metrics while at rep position for quality assessment
+              if (isAtRep) {
+                repPositionMetricsRef.current = metrics;
+              }
+              
               // Determine and pass current instruction
               const currentInstruction = getCurrentInstruction(isAtStart, isAtRep);
-              onMetricsUpdate({ ...metrics, current_instruction: currentInstruction });
+              // Clear quality feedback when back at starting position (ready for next rep)
+              const clearQuality = isAtStart && !isAtRep;
+              onMetricsUpdate({ ...metrics, current_instruction: currentInstruction, clear_quality: clearQuality });
 
               // Detect rep completion (using ref to avoid stale state)
               const wasAtRep = prevAtRepPositionRef.current;
@@ -197,7 +213,8 @@ const ClientSideVideoFeed: React.FC<ClientSideVideoFeedProps> = ({
               // Count rep when leaving rep position (but not during rest period or if workout complete)
               if (wasAtRep && !isAtRep && !inRestPeriod && !workoutComplete) {
                 console.log('[ClientSideVideoFeed] [WEBCAM] Rep completed! Left rep position');
-                handleRepComplete(metrics);
+                // Use stored metrics from when we were at rep position
+                handleRepComplete(repPositionMetricsRef.current || metrics);
               }
               
               // Log if rep was skipped due to rest period

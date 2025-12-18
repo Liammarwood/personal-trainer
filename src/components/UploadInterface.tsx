@@ -69,7 +69,7 @@ const UploadInterface: React.FC = () => {
   };
 
   return (
-    <Paper elevation={3} sx={{ p: 3 }}>
+    <Paper elevation={3} sx={{ p: 3, flex: 1, display: 'flex', flexDirection: 'column' }} data-section="upload">
       <Typography variant="h6" gutterBottom sx={{ fontWeight: 'bold' }}>
         Upload Workout
       </Typography>
@@ -84,6 +84,10 @@ const UploadInterface: React.FC = () => {
           cursor: 'pointer',
           transition: 'all 0.3s ease',
           mb: 2,
+          flex: 1,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
           '&:hover': {
             borderColor: 'primary.main',
             backgroundColor: 'action.hover',
