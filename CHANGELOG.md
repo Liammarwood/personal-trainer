@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/Liammarwood/personal-trainer/compare/v1.1.0...v1.2.0) (2025-12-18)
+
+
+### Features
+
+* Add docs site and other fixes ([ca90b15](https://github.com/Liammarwood/personal-trainer/commit/ca90b158fbb877bdf6a63ac71bbb9b22c385d92c))
+
 # [1.1.0](https://github.com/Liammarwood/personal-trainer/compare/v1.0.0...v1.1.0) (2025-12-17)
 
 
