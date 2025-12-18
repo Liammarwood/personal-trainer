@@ -13,6 +13,7 @@ export interface PoseDetectionConfig {
   smoothLandmarks?: boolean;
   minDetectionConfidence?: number;
   minTrackingConfidence?: number;
+  showAdvancedMode?: boolean;
 }
 
 export interface PoseResults {
@@ -37,6 +38,7 @@ export class ClientSidePoseDetector {
   private drawingEnabled = true;
 
   constructor(config: PoseDetectionConfig = {}) {
+    this.drawingEnabled = config.showAdvancedMode ?? false;
     this.initializePose(config);
   }
 
@@ -66,8 +68,8 @@ export class ClientSidePoseDetector {
    * Handle pose detection results
    */
   private handleResults(results: Results): void {
-    // Draw on canvas if enabled
-    if (this.drawingEnabled && this.canvasElement) {
+    // Always draw video on canvas
+    if (this.canvasElement) {
       this.drawPose(results);
     }
 
@@ -164,8 +166,8 @@ export class ClientSidePoseDetector {
       ctx.fillRect(0, 0, this.canvasElement.width, this.canvasElement.height);
     }
 
-    // Draw pose if detected
-    if (results.poseLandmarks) {
+    // Draw pose if detected and advanced mode enabled
+    if (results.poseLandmarks && this.drawingEnabled) {
       // Draw connections
       drawConnectors(ctx, results.poseLandmarks, POSE_CONNECTIONS, {
         color: '#00FF00',

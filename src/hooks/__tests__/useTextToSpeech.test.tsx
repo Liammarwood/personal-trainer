@@ -28,17 +28,18 @@ describe('useTextToSpeech', () => {
     vi.clearAllMocks();
     localStorage.clear();
     
-    // Mock SpeechSynthesisUtterance constructor
-    mockSpeechSynthesisUtterance.mockImplementation((text) => ({
-      text,
-      rate: 1,
-      pitch: 1,
-      volume: 1,
-      lang: 'en-US',
-      onstart: null,
-      onend: null,
-      onerror: null,
-    }));
+    // Mock SpeechSynthesisUtterance constructor - must return an object when called with 'new'
+    mockSpeechSynthesisUtterance.mockImplementation(function(this: any, text: string) {
+      this.text = text;
+      this.rate = 1;
+      this.pitch = 1;
+      this.volume = 1;
+      this.lang = 'en-US';
+      this.onstart = null;
+      this.onend = null;
+      this.onerror = null;
+      return this;
+    });
   });
 
   const wrapper = ({ children }: { children: ReactNode }) => (

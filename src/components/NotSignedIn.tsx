@@ -32,11 +32,11 @@ const NotSignedIn: React.FC<Props> = ({ onSignIn }) => {
         <Stack spacing={3} alignItems="center">
 
             <Typography variant="h5" fontWeight={600}>
-            You’re not signed in
+            You're not signed in
             </Typography>
 
             <Typography variant="body1" color="text.secondary">
-            Sign in with your Google account to continue to the Family Tree Builder.
+            Sign in with your Google account to continue to the One Personal Trainer application.
             </Typography>
 
             <Button

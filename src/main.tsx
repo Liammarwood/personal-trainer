@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App'
 import { SettingsProvider } from './context/SettingsContext'
-import { BeforeInstallPromptEvent } from './components/InstallPrompt';
+import { BeforeInstallPromptEvent } from './types/events';
 
 // Register service worker for PWA (only in production to avoid SSL certificate issues in dev)
 if ('serviceWorker' in navigator && import.meta.env.PROD) {

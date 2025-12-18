@@ -71,7 +71,6 @@ export interface AppSettings {
   showRepQuality: boolean;
   soundEnabled: boolean;
   showAdvancedMode: boolean;
-  clientSideProcessing: boolean; // New: Enable client-side pose detection
   inputMode: 'webcam' | 'video';
 }
 

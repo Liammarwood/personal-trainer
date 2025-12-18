@@ -73,7 +73,7 @@ export const WorkoutProvider: React.FC<WorkoutProviderProps> = ({ children }) =>
   // Update duration timer
   useEffect(() => {
     let interval: NodeJS.Timeout;
-    if (isTracking && startTime > 0) {
+    if (isTracking && startTime > 0 && !stats.workout_complete) {
       interval = setInterval(() => {
         setStats(prev => ({
           ...prev,
@@ -84,9 +84,9 @@ export const WorkoutProvider: React.FC<WorkoutProviderProps> = ({ children }) =>
     return () => {
       if (interval) clearInterval(interval);
     };
-  }, [isTracking, startTime]);
+  }, [isTracking, startTime, stats.workout_complete]);
 
-  // Rest timer - counts down and resets for next set when complete
+  // Rest timer - counts down and ends rest period when complete
   useEffect(() => {
     if (!stats.in_rest_period) return;
 
@@ -99,12 +99,10 @@ export const WorkoutProvider: React.FC<WorkoutProviderProps> = ({ children }) =>
         const remaining = (prev.rest_remaining || 1) - 1;
         
         if (remaining <= 0) {
-          // Rest complete - increment sets and ready for next set
-          console.log('[WorkoutContext] Rest complete - moving to next set');
+          // Rest complete - ready for next set
+          console.log('[WorkoutContext] Rest complete - ready for next set');
           return {
             ...prev,
-            sets: prev.sets + 1, // Increment sets now
-            reps: 0, // Reset reps for next set
             in_rest_period: false,
             rest_remaining: 0
           };
@@ -244,10 +242,14 @@ export const WorkoutProvider: React.FC<WorkoutProviderProps> = ({ children }) =>
   };
 
   const updateStats = (metrics: any): void => {
-    // Update live joint angles/metrics
+    // Update live joint angles/metrics and current instruction
     setStats(prev => ({
       ...prev,
-      joint_angles: metrics
+      joint_angles: metrics,
+      // Hide instruction during rest, otherwise show current instruction
+      current_instruction: prev.in_rest_period ? undefined : metrics.current_instruction,
+      // Clear quality feedback when back at starting position
+      rep_quality: metrics.clear_quality ? undefined : prev.rep_quality
     }));
   };
 
@@ -269,7 +271,7 @@ export const WorkoutProvider: React.FC<WorkoutProviderProps> = ({ children }) =>
       const plan = prev.expected_plan || {};
       const targetRepsPerSet = plan.reps_per_set || 0;
       const targetSets = plan.sets || 0;
-      const restSeconds = plan.rest_seconds || 60;
+      const restSeconds = plan.rest_seconds !== undefined ? plan.rest_seconds : 60;
       
       // Increment rep count
       const newReps = prev.reps + 1;
@@ -290,7 +292,7 @@ export const WorkoutProvider: React.FC<WorkoutProviderProps> = ({ children }) =>
         };
       }
       
-      // Set is complete - check if workout is complete
+      // Set is complete - increment sets immediately
       const setsCompleted = prev.sets + 1;
       const workoutComplete = targetSets > 0 && setsCompleted >= targetSets;
       
@@ -300,26 +302,40 @@ export const WorkoutProvider: React.FC<WorkoutProviderProps> = ({ children }) =>
         speak('Well done! Workout complete!', { rate: 0.9, pitch: 1.1 });
         return {
           ...prev,
-          reps: newReps,
-          // Don't increment sets - keeps total reps calculation correct
-          // Total reps = sets * reps_per_set + reps
+          reps: 0, // Reset reps
+          sets: setsCompleted, // Increment sets
           workout_complete: true,
           rep_quality: repData.quality
         };
       }
       
-      // Set complete but more sets remain - start rest
-      console.log(`[WorkoutContext] Set ${setsCompleted} complete - starting ${restSeconds}s rest`);
-      speak(`Set ${setsCompleted} complete. Take a rest.`, { rate: 0.95 });
-      
-      return {
-        ...prev,
-        reps: newReps,
-        // Don't increment sets yet - will happen when rest completes
-        in_rest_period: true,
-        rest_remaining: restSeconds,
-        rep_quality: repData.quality
-      };
+      // Set complete but more sets remain
+      if (restSeconds > 0) {
+        // Start rest period
+        console.log(`[WorkoutContext] Set ${setsCompleted} complete - starting ${restSeconds}s rest`);
+        speak(`Set ${setsCompleted} complete. Take a rest.`, { rate: 0.95 });
+        
+        return {
+          ...prev,
+          reps: 0, // Reset reps for next set
+          sets: setsCompleted, // Increment sets immediately
+          in_rest_period: true,
+          rest_remaining: restSeconds,
+          rep_quality: repData.quality
+        };
+      } else {
+        // No rest period - immediately ready for next set
+        console.log(`[WorkoutContext] Set ${setsCompleted} complete - ready for next set`);
+        speak(`Set ${setsCompleted} complete.`, { rate: 0.95 });
+        
+        return {
+          ...prev,
+          reps: 0, // Reset reps for next set
+          sets: setsCompleted, // Increment sets immediately
+          in_rest_period: false,
+          rep_quality: repData.quality
+        };
+      }
     });
   };
 

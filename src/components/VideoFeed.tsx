@@ -1,51 +1,31 @@
-import { useState, useRef } from 'react';
+import { memo } from 'react';
 import { useWorkout } from '../context/WorkoutContext';
 import { useSettings } from '../context/SettingsContext';
 import { Paper, Box, Typography, IconButton, Tooltip } from '@mui/material';
 import VideocamIcon from '@mui/icons-material/Videocam';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import VideocamOffIcon from '@mui/icons-material/VideocamOff';
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
 import ClientSideVideoFeed from './ClientSideVideoFeed';
 import WorkoutStatsOverlay from './WorkoutStatsOverlay';
+import { useFullscreen } from '../hooks/useFullscreen';
+import { Z_INDEX, CONTROL_BUTTON_STYLE, VIDEO_ASPECT_RATIO, MOBILE_VIDEO_HEIGHT } from '../constants';
 
 interface VideoFeedProps {
   onToggleVideo: () => void;
+  onFullscreenChange?: (isFullscreen: boolean) => void;
 }
 
-const VideoFeed: React.FC<VideoFeedProps> = ({ onToggleVideo }) => {
+const VideoFeed: React.FC<VideoFeedProps> = ({ onToggleVideo, onFullscreenChange }) => {
   const { isTracking, stats, sessionId, updateStats, handleRepComplete, currentExercise, selectedVideoFile } = useWorkout();
   const { settings } = useSettings();
-  const [isFullscreen, setIsFullscreen] = useState<boolean>(false);
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  const handleFullscreenToggle = async () => {
-    if (!containerRef.current) return;
-
-    try {
-      if (!isFullscreen) {
-        // Enter fullscreen
-        if (containerRef.current.requestFullscreen) {
-          await containerRef.current.requestFullscreen();
-        }
-        setIsFullscreen(true);
-      } else {
-        // Exit fullscreen
-        if (document.exitFullscreen) {
-          await document.exitFullscreen();
-        }
-        setIsFullscreen(false);
-      }
-    } catch (error) {
-      console.error('Error toggling fullscreen:', error);
-    }
-  };
+  const { isFullscreen, toggleFullscreen, containerRef } = useFullscreen(onFullscreenChange);
 
   // Client-side processing is now the default
   if (!isTracking) {
     return (
-      <Paper elevation={3} sx={{ p: 4, textAlign: 'center', backgroundColor: '#f5f5f5' }}>
-        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}>
+      <Paper elevation={3} sx={{ p: 4, textAlign: 'center', backgroundColor: '#f5f5f5', flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 2, width: '100%', height: '100%' }}>
           <VideocamIcon sx={{ fontSize: 80, color: 'action.disabled' }} />
           <Typography variant="h6" color="text.secondary">
             Start an Exercise to See Video
@@ -65,8 +45,8 @@ const VideoFeed: React.FC<VideoFeedProps> = ({ onToggleVideo }) => {
       sx={{ 
         position: 'relative', 
         overflow: 'hidden', 
-        aspectRatio: { xs: 'unset', sm: '16/9' }, 
-        height: isFullscreen ? '100vh' : { xs: '80vh', sm: 'auto' }, 
+        aspectRatio: { xs: 'unset', sm: VIDEO_ASPECT_RATIO }, 
+        height: isFullscreen ? '100vh' : { xs: MOBILE_VIDEO_HEIGHT, sm: 'auto' }, 
         width: isFullscreen ? '100vw' : 'auto',
         backgroundColor: '#000' 
       }}
@@ -80,21 +60,16 @@ const VideoFeed: React.FC<VideoFeedProps> = ({ onToggleVideo }) => {
           position: 'absolute',
           top: 8,
           right: 8,
-          zIndex: 3,
+          zIndex: Z_INDEX.OVERLAY_CONTROLS,
           display: 'flex',
           gap: 1,
         }}
       >
         <Tooltip title={isFullscreen ? "Exit Fullscreen" : "Fullscreen"}>
           <IconButton
-            onClick={handleFullscreenToggle}
-            sx={{
-              backgroundColor: 'rgba(0, 0, 0, 0.5)',
-              color: 'white',
-              '&:hover': {
-                backgroundColor: 'rgba(0, 0, 0, 0.7)',
-              },
-            }}
+            onClick={toggleFullscreen}
+            aria-label={isFullscreen ? "Exit fullscreen" : "Enter fullscreen"}
+            sx={CONTROL_BUTTON_STYLE}
           >
             {isFullscreen ? <FullscreenExitIcon /> : <FullscreenIcon />}
           </IconButton>
@@ -104,15 +79,10 @@ const VideoFeed: React.FC<VideoFeedProps> = ({ onToggleVideo }) => {
           <Tooltip title="Hide Video Feed">
             <IconButton
               onClick={onToggleVideo}
-              sx={{
-                backgroundColor: 'rgba(0, 0, 0, 0.5)',
-                color: 'white',
-                '&:hover': {
-                  backgroundColor: 'rgba(0, 0, 0, 0.7)',
-                },
-              }}
+              aria-label="Hide video feed"
+              sx={CONTROL_BUTTON_STYLE}
             >
-              <VisibilityOffIcon />
+              <VideocamOffIcon />
             </IconButton>
           </Tooltip>
         )}
@@ -129,10 +99,11 @@ const VideoFeed: React.FC<VideoFeedProps> = ({ onToggleVideo }) => {
           videoFile={selectedVideoFile}
           inRestPeriod={stats.in_rest_period || false}
           workoutComplete={stats.workout_complete || false}
+          showAdvancedMode={settings.showAdvancedMode}
         />
       )}
     </Paper>
   );
 };
 
-export default VideoFeed;
+export default memo(VideoFeed);

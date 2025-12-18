@@ -45,7 +45,6 @@ describe('TypeScript Type Definitions', () => {
       showRepQuality: boolean;
       soundEnabled: boolean;
       showAdvancedMode: boolean;
-      clientSideProcessing: boolean;
       inputMode: 'webcam' | 'video';
     };
 
@@ -54,7 +53,6 @@ describe('TypeScript Type Definitions', () => {
       showRepQuality: false,
       soundEnabled: false,
       showAdvancedMode: false,
-      clientSideProcessing: true,
       inputMode: 'webcam',
     };
 
