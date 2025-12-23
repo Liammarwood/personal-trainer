@@ -1,8 +1,10 @@
-import React, { memo } from 'react';
-import { Box, Typography, LinearProgress, Chip, Paper, Grid } from '@mui/material';
+import React, { memo, useState } from 'react';
+import { Box, Typography, LinearProgress, Chip, Paper, Grid, IconButton, Tooltip } from '@mui/material';
 import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 import TimerIcon from '@mui/icons-material/Timer';
 import RepeatIcon from '@mui/icons-material/Repeat';
+import MinimizeIcon from '@mui/icons-material/Minimize';
+import VisibilityIcon from '@mui/icons-material/Visibility';
 import { useSettings } from '../context/SettingsContext';
 import type { WorkoutStats } from '../types';
 
@@ -13,6 +15,7 @@ interface WorkoutStatsOverlayProps {
 
 const WorkoutStatsOverlay: React.FC<WorkoutStatsOverlayProps> = ({ stats, visible }) => {
   const { settings } = useSettings();
+  const [isMinimized, setIsMinimized] = useState(false);
   
   if (!stats) return null;
 
@@ -118,7 +121,7 @@ const WorkoutStatsOverlay: React.FC<WorkoutStatsOverlayProps> = ({ stats, visibl
       )}
 
       {/* Stats Panel - Top Left (only visible when setting enabled) */}
-      {visible && (
+      {visible && !isMinimized && (
         <Box
           sx={{
             position: 'absolute',
@@ -136,9 +139,26 @@ const WorkoutStatsOverlay: React.FC<WorkoutStatsOverlayProps> = ({ stats, visibl
           {/* Header */}
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1.5 }}>
             <FitnessCenterIcon sx={{ color: 'primary.main', fontSize: 20 }} />
-            <Typography variant="subtitle2" sx={{ color: 'white', fontWeight: 'bold' }}>
+            <Typography variant="subtitle2" sx={{ color: 'white', fontWeight: 'bold', flex: 1 }}>
               Workout Progress
             </Typography>
+            <Tooltip title="Minimize stats">
+              <IconButton
+                onClick={() => setIsMinimized(true)}
+                size="small"
+                aria-label="Minimize workout stats"
+                sx={{
+                  color: 'rgba(255, 255, 255, 0.7)',
+                  padding: '4px',
+                  '&:hover': {
+                    color: 'white',
+                    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                  },
+                }}
+              >
+                <MinimizeIcon sx={{ fontSize: 18 }} />
+              </IconButton>
+            </Tooltip>
           </Box>
 
           {/* Stats Grid */}
@@ -270,6 +290,32 @@ const WorkoutStatsOverlay: React.FC<WorkoutStatsOverlayProps> = ({ stats, visibl
             )}
           </Box>
         </Box>
+      )}
+
+      {/* Restore Button - Shows when overlay is minimized */}
+      {visible && isMinimized && (
+        <Tooltip title="Show workout stats">
+          <IconButton
+            onClick={() => setIsMinimized(false)}
+            aria-label="Show workout stats"
+            sx={{
+              position: 'absolute',
+              top: { xs: 10, sm: 10 },
+              left: { xs: 10, sm: 15 },
+              zIndex: 2,
+              backgroundColor: 'rgba(0, 0, 0, 0.75)',
+              backdropFilter: 'blur(10px)',
+              color: 'primary.main',
+              border: '1px solid rgba(255, 255, 255, 0.1)',
+              '&:hover': {
+                backgroundColor: 'rgba(0, 0, 0, 0.85)',
+                color: 'primary.light',
+              },
+            }}
+          >
+            <VisibilityIcon />
+          </IconButton>
+        </Tooltip>
       )}
     </>
   );
