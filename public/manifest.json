@@ -1,6 +1,6 @@
 {
-  "name": "Personal Trainer - Workout Tracking",
-  "short_name": "PT Tracker",
+  "name": "One Personal Trainer - Workout Tracking",
+  "short_name": "One Personal Trainer",
   "description": "Track your workouts with automated form analysis, rep counting, and real-time feedback. Works offline!",
   "start_url": "/",
   "scope": "/",

@@ -7,7 +7,6 @@ const STATIC_ASSETS = [
   '/index.html',
   '/manifest.json',
   '/exercises.json',
-  '/offline.html',
   '/icon.svg'
 ];
 
@@ -97,9 +96,9 @@ self.addEventListener('fetch', (event) => {
             return response;
           })
           .catch(() => {
-            // Return offline page for navigation requests
+            // Return index.html for navigation requests (app works offline)
             if (request.destination === 'document') {
-              return caches.match('/offline.html').then((response) => {
+              return caches.match('/index.html').then((response) => {
                 return response || caches.match('/');
               });
             }
